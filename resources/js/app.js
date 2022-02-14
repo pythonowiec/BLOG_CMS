@@ -16,5 +16,13 @@ require('./bootstrap');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Example from './components/Example';
+import Posts from './components/Posts';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-ReactDOM.render(<Example />, document.getElementById('example'));
+
+ReactDOM.render(<Posts />, document.querySelector('#content'));
+// ClassicEditor
+//     .create( document.querySelector( '#editor' ) )
+//     .catch( error => {
+//         console.error( error );
+// });

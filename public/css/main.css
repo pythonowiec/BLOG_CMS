@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+}
+
+img {
+  z-index: 0;
+  opacity: 0.85;
+}
+
+.page-header {
+  position: relative;
+  display: flex;
+}
+
+.header-item {
+  position: relative;
+}
+
+.title {
+  font-weight: bold;
+  position: absolute;
+}
+
+.title-s {
+  position: absolute;
+  font-weight: bold;
+}
+
+.published {
+  background-color: #212529;
+  color: white;
+  position: relative;
+  text-align: center;
+}
+
+.published-s {
+  background-color: #212529;
+  color: white;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 576px) {
+  .title {
+    font-size: 1em;
+    top: 5px;
+    left: 15px;
+  }
+
+  .title-s {
+    font-size: 0.55em;
+    top: 5px;
+  }
+
+  .published {
+    display: none;
+  }
+
+  .published-s {
+    display: none;
+  }
+}
+@media (min-width: 576px) and (max-width: 768px) {
+  .title {
+    font-size: 1.2em;
+    top: 5px;
+    left: 30px;
+  }
+
+  .title-s {
+    font-size: 0.7em;
+    top: 5px;
+  }
+
+  .published {
+    font-size: 1em;
+    bottom: 23px;
+  }
+
+  .published-s {
+    font-size: 0.5em;
+    bottom: 0px;
+  }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .title {
+    font-size: 1.5em;
+    top: 5px;
+    left: 30px;
+  }
+
+  .title-s {
+    font-size: 0.7em;
+    top: 5px;
+    left: 15px;
+  }
+
+  .published {
+    font-size: 1.2em;
+    bottom: 28px;
+  }
+
+  .published-s {
+    font-size: 0.6em;
+    bottom: 0px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .title {
+    font-size: 1.5em;
+    top: 5px;
+    left: 40px;
+  }
+
+  .title-s {
+    font-size: 1em;
+    top: 5px;
+    left: 15px;
+  }
+
+  .published {
+    font-size: 1.2em;
+    left: 15px;
+    bottom: 28px;
+  }
+
+  .published-s {
+    font-size: 0.7em;
+    bottom: 0px;
+  }
+}
+@media (min-width: 1200px) {
+  .title {
+    font-size: 2em;
+    top: 5px;
+    left: 50px;
+  }
+
+  .title-s {
+    font-size: 1.5em;
+    top: 5px;
+    left: 15px;
+  }
+
+  .published {
+    font-size: 1.2em;
+    bottom: 28px;
+  }
+
+  .published-s {
+    font-size: 1em;
+    bottom: 0px;
+  }
+}
