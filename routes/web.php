@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-Auth::routes();
+Route::group(['prefix' => 'admin_panel'], function () {
+
+    Auth::routes();
+
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -30,12 +30,16 @@ body{
     opacity: 1;
 }
 .title-head{
+    background-color: #212529;
     font-weight: bold;
     position: absolute;
+    color: white;
 }
 .title-head-s{
+    background-color: #212529;
     position: absolute;
     font-weight: bold;
+    color: white;
 }
 .published-head{
     background-color: #212529;
@@ -75,25 +79,24 @@ body{
     width: 15%;
     background-color: #212529;
     color: white;
-    border: #212529 solid 3px;
+    border: #363c41 solid 3px;
     border-radius: 15px;
-    box-shadow: whitesmoke 0px 0px 20px;
+    box-shadow: rgb(231, 229, 229) 0px 0px 10px;
 }
 .showBtn:hover{
-    background-color: white;
-    color: #212529;
+    background-color: #363c41;
     box-shadow: none;
 }
 @media (max-width: 576px){
     .title-head {
         font-size: .7em;
-        top: 5px;
-        left: 15px;
+        top: 0px;
+        padding-left: 15px;
     }
     .title-head-s{
         font-size: .55em;
-        top: 5px;
-        left: 10px;
+        top: 0px;
+        padding-left: 10px;
     }
     .published-head{
         display: none;
@@ -104,17 +107,20 @@ body{
     .post{
         margin-top: 50px;
     }
+    .showBtn{
+        display: none !important;
+    }
 
 }
 @media (min-width: 576px) and (max-width: 768px){
     .title-head {
         font-size: 1.2em;
-        top: 5px;
+        top: 0px;
         left: 30px;
     }
     .title-head-s{
         font-size: .7em;
-        top: 5px;
+        top: 0px;
     }
     .published-head{
         font-size: 1em;
@@ -124,18 +130,21 @@ body{
         font-size: .5em;
         bottom: 0px;
     }
+    .showBtn{
+        display: none !important;
+    }
 
 }
 
 @media (min-width: 768px) and (max-width: 992px){
     .title-head {
         font-size: 1.5em;
-        top: 5px;
+        top: 0px;
         left: 30px;
     }
     .title-head-s{
         font-size: .7em;
-        top: 5px;
+        top: 0px;
         left: 15px;
         
     }
@@ -152,12 +161,12 @@ body{
 @media (min-width: 992px) and (max-width: 1200px){
     .title-head {
         font-size: 1.5em;
-        top: 5px;
+        top: 0px;
         left: 40px;
     }
     .title-head-s{
         font-size: 1em;
-        top: 5px;
+        top: 0px;
         left: 15px;
         
     }
@@ -175,13 +184,13 @@ body{
 @media (min-width: 1200px){
     .title-head {
         font-size: 2em;
-        top: 5px;
-        left: 50px;
+        top: 0px;
+        padding-left: 50px;
     }
     .title-head-s{
         font-size: 1.5em;
-        top: 5px;
-        left: 15px;
+        top: 0px;
+        padding-left: 15px;
     }
     .published-head{
         font-size: 1.2em;

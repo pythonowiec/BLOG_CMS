@@ -5432,8 +5432,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -5453,10 +5451,10 @@ var Posts = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, Posts);
 
     _this = _super.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this), "id", 'test');
-
     _this.state = {
+      error: null,
+      isLoaded: false,
+      items: [],
       post: {
         display: 'none',
         id: 0
@@ -5466,175 +5464,164 @@ var Posts = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(Posts, [{
-    key: "render",
-    value: function render() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this2 = this;
 
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "container",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "row p-0 page-header",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "col-8 col-lg-8 p-0 m-0",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "header-item",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                className: "header-image",
-                style: {
-                  backgroundImage: "url(".concat(_images_im2_jpg__WEBPACK_IMPORTED_MODULE_3__["default"], ")")
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                className: "title-head",
-                children: "Adipisicing velit aliquip exercitation sunt exercitation dolore eadsadsads."
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                className: "published-head",
-                children: "Posted by Start Bootstrap on September 18, 2021"
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "col-4 p-0 m-0 ",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "header-item",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                className: "header-image-s",
-                style: {
-                  backgroundImage: "url(".concat(_images_im_jpg__WEBPACK_IMPORTED_MODULE_2__["default"], ")")
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                className: "title-head-s",
-                children: "Ipsum dolor aute elit consequat irure ipsum esse enim excepteur laborum in."
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                className: "published-head-s",
-                children: "Posted by Start Bootstrap on September 18, 2021"
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "header-item",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                className: "header-image-s",
-                style: {
-                  backgroundImage: "url(".concat(_images_im_jpg__WEBPACK_IMPORTED_MODULE_2__["default"], ")")
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                className: "title-head-s",
-                children: "Ipsum dolor aute elit consequat irure ipsum esse enim excepteur laborum in."
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                className: "published-head-s",
-                children: "Posted by Start Bootstrap on September 18, 2021"
-              })]
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "row",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "col-1"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "col-10",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "post",
-              onMouseEnter: function onMouseEnter() {
-                _this2.setState({
-                  post: {
-                    display: 'block',
-                    id: '1'
-                  }
-                });
-              },
-              onMouseLeave: function onMouseLeave() {
-                _this2.setState({
-                  post: {
-                    display: 'none',
-                    id: '1'
-                  }
-                });
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-                className: "img-fluid",
-                src: _images_im2_jpg__WEBPACK_IMPORTED_MODULE_3__["default"],
-                alt: ""
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                className: "title",
-                children: "Ipsum dolor aute elit consequat irure ipsum esse enim excepteur laborum in."
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                className: "published",
-                children: "Posted by Start Bootstrap on September 18, 2021"
-              }), function () {
-                if (_this2.state.post['id'] == '1') {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-                    className: "showBtn",
-                    id: "2",
-                    style: {
-                      display: "".concat(_this2.state.post['display'])
-                    },
-                    children: "Show More"
-                  });
-                } else {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-                    className: "showBtn",
-                    id: "2",
-                    style: {
-                      display: "none"
-                    },
-                    children: "Show More"
-                  });
-                }
-              }()]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "post",
-              onMouseEnter: function onMouseEnter() {
-                _this2.setState({
-                  post: {
-                    display: 'block',
-                    id: '2'
-                  }
-                });
-
-                console.log(_this2.state);
-              },
-              onMouseLeave: function onMouseLeave() {
-                _this2.setState({
-                  post: {
-                    display: 'none',
-                    id: '2'
-                  }
-                });
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-                className: "img-fluid",
-                src: _images_im2_jpg__WEBPACK_IMPORTED_MODULE_3__["default"],
-                alt: ""
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                className: "title",
-                children: "Ipsum dolor aute elit consequat irure ipsum esse enim excepteur laborum in."
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-                className: "published",
-                children: "Posted by Start Bootstrap on September 18, 2021"
-              }), function () {
-                if (_this2.state.post['id'] == '2') {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-                    className: "showBtn",
-                    id: "2",
-                    style: {
-                      display: "".concat(_this2.state.post['display'])
-                    },
-                    children: "Show More"
-                  });
-                } else {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-                    className: "showBtn",
-                    id: "2",
-                    style: {
-                      display: "none"
-                    },
-                    children: "Show More"
-                  });
-                }
-              }()]
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "col-1"
-          })]
-        })]
+      fetch("http://127.0.0.1:8000/api/posts").then(function (res) {
+        return res.json();
+      }).then(function (result) {
+        _this2.setState({
+          isLoaded: true,
+          items: result
+        });
+      }, // Uwaga: to ważne, żeby obsłużyć błędy tutaj, a
+      // nie w bloku catch(), aby nie przetwarzać błędów
+      // mających swoje źródło w komponencie.
+      function (error) {
+        _this2.setState({
+          isLoaded: true,
+          error: error
+        });
       });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      var _this$state = this.state,
+          error = _this$state.error,
+          isLoaded = _this$state.isLoaded,
+          items = _this$state.items,
+          post = _this$state.post;
+
+      if (error) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: ["B\u0142\u0105d: ", error.message]
+        });
+      } else if (!isLoaded) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          children: "\u0141adowanie..."
+        });
+      } else {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "container",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "row p-0 page-header",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "col-8 col-lg-8 p-0 m-0",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                className: "header-item",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "header-image",
+                  style: {
+                    backgroundImage: "url(".concat(_images_im2_jpg__WEBPACK_IMPORTED_MODULE_3__["default"], ")")
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+                  className: "title-head",
+                  children: "Adipisicing velit aliquip exercitation sunt exercitation dolore eadsadsads."
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "published-head",
+                  children: "Posted by Start Bootstrap on September 18, 2021"
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "col-4 p-0 m-0 ",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                className: "header-item",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "header-image-s",
+                  style: {
+                    backgroundImage: "url(".concat(_images_im_jpg__WEBPACK_IMPORTED_MODULE_2__["default"], ")")
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+                  className: "title-head-s",
+                  children: "Ipsum dolor aute elit consequat irure ipsum esse enim excepteur laborum in."
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "published-head-s",
+                  children: "Posted by Start Bootstrap on September 18, 2021"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                className: "header-item",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "header-image-s",
+                  style: {
+                    backgroundImage: "url(".concat(_images_im_jpg__WEBPACK_IMPORTED_MODULE_2__["default"], ")")
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+                  className: "title-head-s",
+                  children: "Ipsum dolor aute elit consequat irure ipsum esse enim excepteur laborum in."
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "published-head-s",
+                  children: "Posted by Start Bootstrap on September 18, 2021"
+                })]
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "row",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "col-1"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "col-10",
+              children: items.map(function (item) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "post",
+                  onMouseEnter: function onMouseEnter() {
+                    _this3.setState({
+                      post: {
+                        display: 'block',
+                        id: item.id
+                      }
+                    });
+                  },
+                  onMouseLeave: function onMouseLeave() {
+                    _this3.setState({
+                      post: {
+                        display: 'none',
+                        id: item.id
+                      }
+                    });
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                    className: "img-fluid",
+                    src: _images_im2_jpg__WEBPACK_IMPORTED_MODULE_3__["default"],
+                    alt: ""
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+                    className: "title",
+                    children: item.title
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
+                    className: "published",
+                    children: ["Posted by Start Bootstrap on ", item.created_at]
+                  }), function () {
+                    if (post['id'] == item.id) {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                        className: "showBtn",
+                        id: item.id,
+                        style: {
+                          display: "".concat(post['display'])
+                        },
+                        children: "Show More"
+                      });
+                    } else {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                        className: "showBtn",
+                        id: item.id,
+                        style: {
+                          display: "none"
+                        },
+                        children: "Show More"
+                      });
+                    }
+                  }()]
+                }, item.id);
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "col-1"
+            })]
+          })]
+        });
+      }
     }
   }]);
 
