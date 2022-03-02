@@ -17,10 +17,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Example from './components/Example';
 import Posts from './components/Posts';
+import Post from './components/Post';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-
-ReactDOM.render(<Posts />, document.querySelector('#content'));
+ReactDOM.render(
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Posts />} />
+            <Route path="/:id" element={<Post/>} />
+        </Routes>
+    </BrowserRouter>,
+   document.querySelector('#content'));
 // ClassicEditor
 //     .create( document.querySelector( '#editor' ) )
 //     .catch( error => {

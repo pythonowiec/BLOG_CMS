@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {
+    protected $primaryKey = 'title';
     /**
      * Display a listing of the resource.
      *
@@ -46,9 +47,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($string)
+    {   
+        $title = str_replace('-', ' ', $string);
+        $post = Post::find($title);
+        return response()->json($post, 200);
     }
 
     /**

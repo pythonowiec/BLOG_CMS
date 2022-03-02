@@ -1,8 +1,9 @@
 import { divide } from "lodash";
 import React, { Component } from "react";
 import ReactDOM from "react";
-import img from './images/im.jpg'
-import img2 from './images/im2.jpg'
+import { Link } from "react-router-dom";
+import img from './images/im.jpg';
+import img2 from './images/im2.jpg';
 
 class Posts extends Component {
     constructor(props) {
@@ -14,11 +15,13 @@ class Posts extends Component {
             post: {
                 display: 'none',
                 id: 0
-            }
+            },
+            id: 0
         };
     }
 
     componentDidMount() {
+        console.log(this.props.match.params)
         fetch("http://127.0.0.1:8000/api/posts")
             .then(res => res.json())
             .then(
@@ -86,7 +89,7 @@ class Posts extends Component {
                                     {(() => {
                                         if (post['id'] == item.id) {
                                             return (
-                                                <button className='showBtn' id={item.id} style={{ display: `${post['display']}` }}>Show More</button>
+                                                <Link to={`/${item.title.replace(' ', '-')}`}><button className='showBtn' onClick={() => { this.setState({ id: item.id }) }}  id={item.id} style={{ display: `${post['display']}` }}>Show More</button></Link>
                                             )
                                         } else {
                                             return (

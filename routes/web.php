@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/{string}', function () {
+    return view('show');
+});
 
 Route::group(['prefix' => 'admin_panel'], function () {
 
