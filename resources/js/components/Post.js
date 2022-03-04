@@ -36,7 +36,7 @@ const Post = () =>{
     } else {
         return (
             <div className='container'>
-                <div className='row'>
+                <div className='row mt-5'>
                     <div className='col-1'></div>
                     <div className='col-11'>
                             <div className='post'>
@@ -45,8 +45,9 @@ const Post = () =>{
                     </div>
                 </div>
                 <div className="row">
-                    <p className='title'>{item.title}</p>
-                    <p className='published'>Posted by Start Bootstrap on {item.created_at}</p>
+                    <p className='title-post'>{item.title}</p>
+                    <p className='published-post'>Posted by Start Bootstrap on {item.created_at}</p>
+                    <p className="content-post">{item.content}</p>
                 </div>
             </div>
 

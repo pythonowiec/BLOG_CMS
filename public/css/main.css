@@ -100,6 +100,23 @@ body {
   box-shadow: none;
 }
 
+.title-post {
+  font-size: 50px;
+  color: white;
+  text-align: center;
+}
+
+.content-post {
+  font-size: 25px;
+  color: white;
+  text-align: justify;
+}
+
+.published-post {
+  color: white;
+  text-align: right;
+}
+
 @media (max-width: 576px) {
   .title-head {
     font-size: 0.7em;

@@ -21,7 +21,6 @@ class Posts extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.match.params)
         fetch("http://127.0.0.1:8000/api/posts")
             .then(res => res.json())
             .then(
