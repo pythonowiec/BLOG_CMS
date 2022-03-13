@@ -26,6 +26,7 @@ ReactDOM.render(
         <Routes>
             <Route path="/" element={<Posts />} />
             <Route path="/:id" element={<Post/>} />
+            <Route path="/editor" element={<Example/>}/>
         </Routes>
     </BrowserRouter>,
    document.querySelector('#content'));
@@ -33,4 +34,3 @@ ReactDOM.render(
 //     .create( document.querySelector( '#editor' ) )
 //     .catch( error => {
 //         console.error( error );
-// });

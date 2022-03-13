@@ -19,6 +19,9 @@ Route::get('/', function () {
 Route::get('/{string}', function () {
     return view('show');
 });
+Route::get('editor', function () {
+    return view('editor');
+});
 
 Route::group(['prefix' => 'admin_panel'], function () {
 
