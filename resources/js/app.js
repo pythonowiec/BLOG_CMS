@@ -18,6 +18,7 @@ import ReactDOM from 'react-dom';
 import Example from './components/Example';
 import Posts from './components/Posts';
 import Post from './components/Post';
+import AddPost from './components/AddPost';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -26,7 +27,7 @@ ReactDOM.render(
         <Routes>
             <Route path="/" element={<Posts />} />
             <Route path="/:id" element={<Post/>} />
-            <Route path="/editor" element={<Example/>}/>
+            <Route path="admin_panel/add_post" element={<AddPost/>}/>
         </Routes>
     </BrowserRouter>,
    document.querySelector('#content'));

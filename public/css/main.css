@@ -7,6 +7,15 @@ body {
   overflow-x: hidden;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ebebeb;
+}
+
 .page-header {
   position: relative;
   display: flex;
@@ -92,7 +101,6 @@ body {
   color: white;
   border: #363c41 solid 3px;
   border-radius: 15px;
-  box-shadow: #e7e5e5 0px 0px 10px;
 }
 
 .showBtn:hover {
@@ -117,15 +125,31 @@ body {
   text-align: right;
 }
 
+.saveBtn {
+  background-color: #212529;
+  color: white;
+  border: #363c41 solid 3px;
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 100px;
+  height: 50px;
+}
+
+.saveBtn:hover {
+  background-color: #434649;
+  box-shadow: none;
+}
+
 @media (max-width: 576px) {
   .title-head {
-    font-size: 0.7em;
+    font-size: 0.56em;
     top: 0px;
     padding-left: 15px;
+    height: 22px;
   }
 
   .title-head-s {
-    font-size: 0.55em;
+    font-size: 0.48em;
     top: 0px;
     padding-left: 10px;
   }
@@ -150,12 +174,13 @@ body {
   .title-head {
     font-size: 1.2em;
     top: 0px;
-    left: 30px;
+    left: 0px;
   }
 
   .title-head-s {
     font-size: 0.7em;
     top: 0px;
+    height: 50px;
   }
 
   .published-head {
@@ -176,13 +201,13 @@ body {
   .title-head {
     font-size: 1.5em;
     top: 0px;
-    left: 30px;
+    left: 0px;
   }
 
   .title-head-s {
     font-size: 0.7em;
     top: 0px;
-    left: 15px;
+    left: 0px;
   }
 
   .published-head {
@@ -199,13 +224,13 @@ body {
   .title-head {
     font-size: 1.5em;
     top: 0px;
-    left: 40px;
+    left: 0px;
   }
 
   .title-head-s {
     font-size: 1em;
     top: 0px;
-    left: 15px;
+    left: 0px;
   }
 
   .published-head {
@@ -221,15 +246,18 @@ body {
 }
 @media (min-width: 1200px) {
   .title-head {
-    font-size: 2em;
+    line-height: normal;
+    font-size: 1.8em;
     top: 0px;
     padding-left: 50px;
   }
 
   .title-head-s {
+    line-height: normal;
     font-size: 1.5em;
     top: 0px;
     padding-left: 15px;
+    height: 70px;
   }
 
   .published-head {

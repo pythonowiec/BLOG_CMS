@@ -24,9 +24,20 @@ Route::get('editor', function () {
 });
 
 Route::group(['prefix' => 'admin_panel'], function () {
-
     Auth::routes();
+    Route::get('/', function () {
+        return 'Siema';
+    });
+    Route::get('/add_post', function () {
+        return view('editor');
+    })->middleware('auth')->name('add');
 
 });
+// Route::name('admin.')->group(function () {
+//     Auth::routes();
+//     Route::get('/', function () {
+//         return view('editor');
+//     })->middleware('auth');
+// });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

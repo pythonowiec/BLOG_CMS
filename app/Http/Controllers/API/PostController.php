@@ -5,10 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;  
 
 class PostController extends Controller
 {
-    protected $primaryKey = 'title';
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +38,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post;
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->name = 'admin';
+        $post->views = '0';
+        $post->image = 'test';
+        $post->save();
+        return response()->json($request->content, 200);
+
+
     }
 
     /**
@@ -50,7 +59,8 @@ class PostController extends Controller
     public function show($string)
     {   
         $title = str_replace('-', ' ', $string);
-        $post = Post::find($title);
+        $post = DB::select('select * from posts where title = ?', [$title]);
+        // dd($post[0]);
         return response()->json($post, 200);
     }
 
@@ -85,6 +95,5 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 }

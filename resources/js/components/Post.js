@@ -11,12 +11,13 @@ const Post = () =>{
     const [isLoaded, setisLoaded] = useState(false);
     const [item, setItem] = useState([]);
 
+    let { id } = useParams();
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/posts/1')
+        axios.get(`http://127.0.0.1:8000/api/posts/${id}`)
             .then(function (response) {
                 // handle success
                 setisLoaded(true)
-                setItem(response.data)
+                setItem(response.data[0])
             })
             .catch(function (error) {
                 // handle error
@@ -25,10 +26,9 @@ const Post = () =>{
             })
             
     }, []);
-    let { id } = useParams();
 
     console.log(id);
-    console.log(item)
+    console.log(item.title)
     if (error) {
         return <div>Błąd: {error.message}</div>;
     } else if (!isLoaded) {
@@ -47,7 +47,9 @@ const Post = () =>{
                 <div className="row">
                     <p className='title-post'>{item.title}</p>
                     <p className='published-post'>Posted by Start Bootstrap on {item.created_at}</p>
-                    <p className="content-post">{item.content}</p>
+                    <p className="content-post" dangerouslySetInnerHTML={{
+                        __html: item.content
+                    }}></p>
                 </div>
             </div>
 

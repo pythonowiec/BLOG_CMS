@@ -1,5 +1,8 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import 'axios';
+import axios from 'axios';
+
 
 export default class App extends React.Component {
     constructor(props) {
@@ -13,11 +16,18 @@ export default class App extends React.Component {
         this.setState({
             content: e.target.getContent()
           })
-        console.log(this.state)
     }
 
     onClick = () =>{
-        console.log(this.state)
+        axios.post('api/posts', {
+            content: this.state.content,
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
     render() {
         return (
@@ -33,12 +43,18 @@ export default class App extends React.Component {
                         automatic_uploads: true,
                         block_unsupported_drop: false,
                         height: 400,
-                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; }'
+                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; }',
+                        skin: "oxide-dark",
+                        content_css: "dark"
                     }}
                     onChange={this.onChange}
                 />
                 <button onClick={this.onClick}>Save</button>
                 <p>{this.state.content}</p>
+                <div
+                    dangerouslySetInnerHTML={{
+                        __html: '<p>This is the initial content of the <span style=\"color: #f1c40f;\">editordsa<\/span><\/p>\n<div class=\"ddict_div\" style=\"top: 38.6px; max-width: 150px; left: 169.525px;\"><img class=\"ddict_audio\" src=\"chrome-extension:\/\/bpggmmljdiliancllaapiggllnkbjocb\/img\/audio.png\" \/>\n<p class=\"ddict_sentence\">redaktorka<\/p>\n<hr \/>\n<p class=\"ddict_didumean\">Did you mean <span class=\"ddict_spell\">editors<\/span><\/p>\n<\/div>'
+                    }}></div>
             </div>
         )
     }
