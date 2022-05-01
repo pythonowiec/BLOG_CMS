@@ -1,27 +1,20 @@
-import React from 'react';
-import { Editor } from '@tinymce/tinymce-react';
-import 'axios';
-import axios from 'axios';
+import React, {Component} from 'react';
+import Dropzone from 'react-dropzone';
 
-
-export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.onChange = this.onChange.bind(this);
-        this.onClick = this.onClick.bind(this)
-        this.state = {date: new Date(), content: null}
+class Example extends Component {
+    constructor() {
+        super();
+        this.onChangeImage = this.onChangeImage.bind(this)
+        this.state = {
+        files: []
+        };
     }
-
-    onChange(e) {
-        this.setState({
-            content: e.target.getContent()
-          })
-    }
-
-    onClick = () =>{
-        axios.post('api/posts', {
-            content: this.state.content,
-          })
+    onChangeImage = (e) => {
+        const file = e.target.files[0]
+        const fd = new FormData()
+        fd.append('image', file, file.name)
+        console.log();
+        axios.post('http://127.0.0.1:8000/api/posts', fd)
           .then(function (response) {
             console.log(response);
           })
@@ -30,33 +23,20 @@ export default class App extends React.Component {
           });
     }
     render() {
-        return (
-            <div>
-                <Editor
-                    initialValue="<p>This is the initial content of the editor</p>"
-                    apiKey="0efkeh4p0498bwsf03d5deorgcjtsaopgw0lvebxnucvfpc5"
-                    init={{
-                        selector: 'textarea#file-picker',
-                        plugins: 'image code textcolor preview powerpaste casechange searchreplace autolink autosave save directionality  table charmap hr   nonbreaking   insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker textpattern noneditable  formatpainter  mentions quickbars linkchecker emoticons ',
-                        toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat |   | charmap emoticons | image   link | showcomments addcomment',
-                        image_title: true,
-                        automatic_uploads: true,
-                        block_unsupported_drop: false,
-                        height: 400,
-                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; }',
-                        skin: "oxide-dark",
-                        content_css: "dark"
-                    }}
-                    onChange={this.onChange}
-                />
-                <button onClick={this.onClick}>Save</button>
-                <p>{this.state.content}</p>
-                <div
-                    dangerouslySetInnerHTML={{
-                        __html: '<p>This is the initial content of the <span style=\"color: #f1c40f;\">editordsa<\/span><\/p>\n<div class=\"ddict_div\" style=\"top: 38.6px; max-width: 150px; left: 169.525px;\"><img class=\"ddict_audio\" src=\"chrome-extension:\/\/bpggmmljdiliancllaapiggllnkbjocb\/img\/audio.png\" \/>\n<p class=\"ddict_sentence\">redaktorka<\/p>\n<hr \/>\n<p class=\"ddict_didumean\">Did you mean <span class=\"ddict_spell\">editors<\/span><\/p>\n<\/div>'
-                    }}></div>
-            </div>
-        )
-    }
+        console.log(this.state.files);
+        const fd = new FormData(this.state.files[0])
+        const files = this.state.files.map(file => (
+        <li key={file.name}>
+            {file.name} - {file.size} bytes
+        </li>
+        ));
+
+    return (
+        <div>
+            <input type="file" onChange={this.onChangeImage} />
+        </div>
+    );
+  }
 }
 
+export default Example

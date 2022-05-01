@@ -28,6 +28,7 @@ ReactDOM.render(
             <Route path="/" element={<Posts />} />
             <Route path="/:id" element={<Post/>} />
             <Route path="admin_panel/add_post" element={<AddPost/>}/>
+            <Route path="/example" element={<Example/>}/>
         </Routes>
     </BrowserRouter>,
    document.querySelector('#content'));

@@ -38,12 +38,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $img = $request->file('image');
+        $file = $img->storeOnCloudinary();
+        $id_img = $file->getPublicId();
         $post = new Post;
         $post->title = $request->title;
         $post->content = $request->content;
         $post->name = 'admin';
         $post->views = '0';
-        $post->image = 'test';
+        $post->image = $id_img;
         $post->save();
         return response()->json($request->content, 200);
 

@@ -88,6 +88,7 @@ a:hover {
 
 .published {
   text-align: right;
+  padding-right: 10px;
 }
 
 .showBtn {
@@ -111,7 +112,6 @@ a:hover {
 .title-post {
   font-size: 50px;
   color: white;
-  text-align: center;
 }
 
 .content-post {
@@ -138,6 +138,22 @@ a:hover {
 .saveBtn:hover {
   background-color: #434649;
   box-shadow: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #363c41;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #666666;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #343434;
 }
 
 @media (max-width: 576px) {

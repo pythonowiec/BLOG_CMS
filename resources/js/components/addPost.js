@@ -8,32 +8,34 @@ export default class AddPost extends React.Component {
     constructor(props) {
         super(props);
         this.onChangeContent = this.onChangeContent.bind(this);
+        this.onChangeImage = this.onChangeImage.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.onClick = this.onClick.bind(this)
-        this.state = {date: new Date(), content: null, title: null}
+        this.state = {date: new Date(), content: null, title: null, image: null}
     }
-
     onChangeContent(e) {
         this.setState({
             content: e.target.getContent(),
-            
         })
     }
     onChangeTitle(e) {
-        console.log(this.state.content)
         this.setState({
             title: e.target.value,
-            
-          })
+        })
+    }
+    onChangeImage = (e) => {
+        const file = e.target.files[0]
+        this.setState({
+            image: file
+        })
     }
 
     onClick = () =>{
-        axios.post('http://127.0.0.1:8000/api/posts', {
-            title: this.state.title,
-            content: this.state.content,
-            image: 'test'
-
-          })
+        console.log(this.state.image);
+        const fd = new FormData()
+        fd.append('image', this.state.image, this.state.image.name)
+        fd.append('title', this.state.title)
+        fd.append('content', this.state.content)
+        axios.post('http://127.0.0.1:8000/api/posts', fd)
           .then(function (response) {
             console.log(response);
           })
@@ -55,7 +57,7 @@ export default class AddPost extends React.Component {
                 <div className='row mt-5'>
                     <div className='col-1'></div>
                     <div className='col-10'>
-                        <input className='form-control w-100 bg-dark text-white' id='exampleInputEmail1' type='file' name='image' required/>
+                        <input className='form-control w-100 bg-dark text-white' id='exampleInputEmail1' type='file' placeholder='Title' name='title' onChange={this.onChangeImage} required/>
                     </div>
                     <div className='col-1'></div>
                 </div>

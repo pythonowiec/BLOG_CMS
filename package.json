@@ -29,6 +29,9 @@
         "@ckeditor/ckeditor5-build-classic": "^32.0.0",
         "@tinymce/tinymce-react": "^3.13.1",
         "react-bootstrap": "^2.1.2",
+        "react-dropzone": "^12.0.5",
+        "react-dropzone-uploader": "^2.11.0",
+        "react-image-upload": "^2.0.1",
         "react-quill": "^1.3.5",
         "react-router-dom": "^6.2.1",
         "styled-components": "^5.3.3"

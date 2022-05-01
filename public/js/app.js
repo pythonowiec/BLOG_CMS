@@ -6022,6 +6022,9 @@ react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
       path: "admin_panel/add_post",
       element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_AddPost__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+      path: "/example",
+      element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {})
     })]
   })
 }), document.querySelector('#content')); // ClassicEditor
@@ -6126,12 +6129,21 @@ var AddPost = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
 
+    _defineProperty(_assertThisInitialized(_this), "onChangeImage", function (e) {
+      var file = e.target.files[0];
+
+      _this.setState({
+        image: file
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "onClick", function () {
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://127.0.0.1:8000/api/posts', {
-        title: _this.state.title,
-        content: _this.state.content,
-        image: 'test'
-      }).then(function (response) {
+      console.log(_this.state.image);
+      var fd = new FormData();
+      fd.append('image', _this.state.image, _this.state.image.name);
+      fd.append('title', _this.state.title);
+      fd.append('content', _this.state.content);
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://127.0.0.1:8000/api/posts', fd).then(function (response) {
         console.log(response);
       })["catch"](function (error) {
         console.log(error);
@@ -6139,12 +6151,13 @@ var AddPost = /*#__PURE__*/function (_React$Component) {
     });
 
     _this.onChangeContent = _this.onChangeContent.bind(_assertThisInitialized(_this));
+    _this.onChangeImage = _this.onChangeImage.bind(_assertThisInitialized(_this));
     _this.onChangeTitle = _this.onChangeTitle.bind(_assertThisInitialized(_this));
-    _this.onClick = _this.onClick.bind(_assertThisInitialized(_this));
     _this.state = {
       date: new Date(),
       content: null,
-      title: null
+      title: null,
+      image: null
     };
     return _this;
   }
@@ -6159,7 +6172,6 @@ var AddPost = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "onChangeTitle",
     value: function onChangeTitle(e) {
-      console.log(this.state.content);
       this.setState({
         title: e.target.value
       });
@@ -6197,7 +6209,9 @@ var AddPost = /*#__PURE__*/function (_React$Component) {
               className: "form-control w-100 bg-dark text-white",
               id: "exampleInputEmail1",
               type: "file",
-              name: "image",
+              placeholder: "Title",
+              name: "title",
+              onChange: this.onChangeImage,
               required: true
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -6271,13 +6285,10 @@ var AddPost = /*#__PURE__*/function (_React$Component) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ App)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _tinymce_tinymce_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tinymce/tinymce-react */ "./node_modules/@tinymce/tinymce-react/lib/es2015/main/ts/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6307,84 +6318,60 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+var Example = /*#__PURE__*/function (_Component) {
+  _inherits(Example, _Component);
 
+  var _super = _createSuper(Example);
 
-var App = /*#__PURE__*/function (_React$Component) {
-  _inherits(App, _React$Component);
-
-  var _super = _createSuper(App);
-
-  function App(props) {
+  function Example() {
     var _this;
 
-    _classCallCheck(this, App);
+    _classCallCheck(this, Example);
 
-    _this = _super.call(this, props);
+    _this = _super.call(this);
 
-    _defineProperty(_assertThisInitialized(_this), "onClick", function () {
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post('api/posts', {
-        content: _this.state.content
-      }).then(function (response) {
+    _defineProperty(_assertThisInitialized(_this), "onChangeImage", function (e) {
+      var file = e.target.files[0];
+      var fd = new FormData();
+      fd.append('image', file, file.name);
+      console.log();
+      axios.post('http://127.0.0.1:8000/api/posts', fd).then(function (response) {
         console.log(response);
       })["catch"](function (error) {
         console.log(error);
       });
     });
 
-    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
-    _this.onClick = _this.onClick.bind(_assertThisInitialized(_this));
+    _this.onChangeImage = _this.onChangeImage.bind(_assertThisInitialized(_this));
     _this.state = {
-      date: new Date(),
-      content: null
+      files: []
     };
     return _this;
   }
 
-  _createClass(App, [{
-    key: "onChange",
-    value: function onChange(e) {
-      this.setState({
-        content: e.target.getContent()
-      });
-    }
-  }, {
+  _createClass(Example, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_tinymce_tinymce_react__WEBPACK_IMPORTED_MODULE_1__.Editor, {
-          initialValue: "<p>This is the initial content of the editor</p>",
-          apiKey: "0efkeh4p0498bwsf03d5deorgcjtsaopgw0lvebxnucvfpc5",
-          init: {
-            selector: 'textarea#file-picker',
-            plugins: 'image code textcolor preview powerpaste casechange searchreplace autolink autosave save directionality  table charmap hr   nonbreaking   insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker textpattern noneditable  formatpainter  mentions quickbars linkchecker emoticons ',
-            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat |   | charmap emoticons | image   link | showcomments addcomment',
-            image_title: true,
-            automatic_uploads: true,
-            block_unsupported_drop: false,
-            height: 400,
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; }',
-            skin: "oxide-dark",
-            content_css: "dark"
-          },
-          onChange: this.onChange
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-          onClick: this.onClick,
-          children: "Save"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          children: this.state.content
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          dangerouslySetInnerHTML: {
-            __html: '<p>This is the initial content of the <span style=\"color: #f1c40f;\">editordsa<\/span><\/p>\n<div class=\"ddict_div\" style=\"top: 38.6px; max-width: 150px; left: 169.525px;\"><img class=\"ddict_audio\" src=\"chrome-extension:\/\/bpggmmljdiliancllaapiggllnkbjocb\/img\/audio.png\" \/>\n<p class=\"ddict_sentence\">redaktorka<\/p>\n<hr \/>\n<p class=\"ddict_didumean\">Did you mean <span class=\"ddict_spell\">editors<\/span><\/p>\n<\/div>'
-          }
-        })]
+      console.log(this.state.files);
+      var fd = new FormData(this.state.files[0]);
+      var files = this.state.files.map(function (file) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+          children: [file.name, " - ", file.size, " bytes"]
+        }, file.name);
+      });
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          type: "file",
+          onChange: this.onChangeImage
+        })
       });
     }
   }]);
 
-  return App;
+  return Example;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Example);
 
 /***/ }),
 
@@ -6454,14 +6441,13 @@ var Post = function Post() {
       // handle success
       setisLoaded(true);
       setItem(response.data[0]);
+      console.log(response.data[0]);
     })["catch"](function (error) {
       // handle error
       setError(error);
       setisLoaded(true);
     });
   }, []);
-  console.log(id);
-  console.log(item.title);
 
   if (error) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
@@ -6582,7 +6568,6 @@ var Posts = /*#__PURE__*/function (_Component) {
       },
       id: 0,
       options: {
-        weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric'
@@ -6732,7 +6717,7 @@ var Posts = /*#__PURE__*/function (_Component) {
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
                     className: "published",
-                    children: ["Posted by Start Bootstrap on ", new Date(items[3].created_at).toLocaleDateString('en-EN', _this3.state.options)]
+                    children: ["Posted by Start Bootstrap on ", new Date(item.created_at).toLocaleDateString('en-EN', _this3.state.options)]
                   }), function () {
                     if (post['id'] == item.id) {
                       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {

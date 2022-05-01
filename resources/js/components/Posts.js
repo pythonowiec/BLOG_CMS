@@ -17,7 +17,7 @@ class Posts extends Component {
                 id: 0
             },
             id: 0,
-            options: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+            options: { year: 'numeric', month: 'long', day: 'numeric' }
         };
     }
 
@@ -91,7 +91,7 @@ class Posts extends Component {
                                 <div className='post' key={item.id} onMouseEnter={() => { this.setState({ post: { display: 'block', id: item.id } }) }} onMouseLeave={() => { this.setState({ post: { display: 'none', id: item.id } }) }}>
                                     <img className='img-fluid' src={img2} alt="" />
                                     <p className='title'><Link to={`/${item.title.replace(' ', '-')}`}>{item.title}</Link></p>
-                                    <p className='published'>Posted by Start Bootstrap on {new Date(items[3].created_at).toLocaleDateString('en-EN', this.state.options)}</p>
+                                    <p className='published'>Posted by Start Bootstrap on {new Date(item.created_at).toLocaleDateString('en-EN', this.state.options)}</p>
                                     {(() => {
                                         if (post['id'] == item.id) {
                                             return (

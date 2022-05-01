@@ -18,6 +18,7 @@ const Post = () =>{
                 // handle success
                 setisLoaded(true)
                 setItem(response.data[0])
+                console.log(response.data[0])
             })
             .catch(function (error) {
                 // handle error
@@ -27,8 +28,6 @@ const Post = () =>{
             
     }, []);
 
-    console.log(id);
-    console.log(item.title)
     if (error) {
         return <div>Błąd: {error.message}</div>;
     } else if (!isLoaded) {
