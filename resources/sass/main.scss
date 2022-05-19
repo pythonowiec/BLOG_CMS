@@ -133,6 +133,14 @@ a:hover{
 ::-webkit-scrollbar-thumb:hover {
     background: #343434; 
 }
+
+.add_input{
+    color: white !important;
+    background-color: #222f3e !important;
+}
+.tab-post{
+    text-overflow: ellipsis;
+}
 @media (max-width: 576px){
     .title-head {
         font-size: .56em;

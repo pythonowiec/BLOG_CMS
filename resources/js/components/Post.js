@@ -7,6 +7,7 @@ import img2 from './images/im2.jpg';
 import 'axios';
 
 const Post = () =>{
+    
     const [error, setError] = useState(null);
     const [isLoaded, setisLoaded] = useState(false);
     const [item, setItem] = useState([]);

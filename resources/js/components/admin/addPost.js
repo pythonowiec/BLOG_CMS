@@ -1,7 +1,9 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import 'axios';
-import axios from 'axios';
+import Swal from "sweetalert2";  
+
+
 
 
 export default class AddPost extends React.Component {
@@ -10,7 +12,7 @@ export default class AddPost extends React.Component {
         this.onChangeContent = this.onChangeContent.bind(this);
         this.onChangeImage = this.onChangeImage.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.state = {date: new Date(), content: null, title: null, image: null}
+        this.state = {date: new Date(), content: [], title: null, image: null, isLoaded: false}
     }
     onChangeContent(e) {
         this.setState({
@@ -32,17 +34,42 @@ export default class AddPost extends React.Component {
     onClick = () =>{
         console.log(this.state.image);
         const fd = new FormData()
-        fd.append('image', this.state.image, this.state.image.name)
+        if(this.state.image){
+            fd.append('image', this.state.image, this.state.image.name)
+            fd.append('extension', this.state.image.type)
+
+        }
         fd.append('title', this.state.title)
         fd.append('content', this.state.content)
         axios.post('http://127.0.0.1:8000/api/posts', fd)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-          
+            .then(function (response) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 2000,
+                })
+            })
+            .catch(function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href="">Why do I have this issue?</a>'
+                  })
+            });
+            Swal.fire({
+                position: 'center',
+                title: 'Saving...',
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                    if(this.state.isLoaded == true){
+                        Swal.close()
+                    }
+                }
+            })
     }
     render() {
         return (
@@ -50,14 +77,14 @@ export default class AddPost extends React.Component {
                 <div className='row mt-5'>
                     <div className='col-1'></div>
                     <div className='col-10 '>
-                        <input className='form-control w-100 bg-dark text-white' id='exampleInputEmail1' type='text' placeholder='Title' name='title' onChange={this.onChangeTitle} required/>
+                        <input className='form-control w-100 add_input' id='exampleInputEmail1' type='text' placeholder='Title' name='title' onChange={this.onChangeTitle} required/>
                     </div>
                     <div className='col-1'></div>
                 </div>
                 <div className='row mt-5'>
                     <div className='col-1'></div>
                     <div className='col-10'>
-                        <input className='form-control w-100 bg-dark text-white' id='exampleInputEmail1' type='file' placeholder='Title' name='title' onChange={this.onChangeImage} required/>
+                        <input className='form-control w-100 add_input' id='exampleInputEmail1' type='file' placeholder='Title' name='title' onChange={this.onChangeImage} required/>
                     </div>
                     <div className='col-1'></div>
                 </div>
@@ -90,9 +117,6 @@ export default class AddPost extends React.Component {
                     </div>
                     <div className='col-1'></div>
                 </div>
-
-                <p>{this.state.content}</p>
-                <p>{this.state.title}</p>
 
                 <div
                     dangerouslySetInnerHTML={{

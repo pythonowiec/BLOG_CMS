@@ -1,40 +1,33 @@
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 
-class Example extends Component {
-    constructor() {
-        super();
-        this.onChangeImage = this.onChangeImage.bind(this)
-        this.state = {
-        files: []
-        };
-    }
-    onChangeImage = (e) => {
-        const file = e.target.files[0]
-        const fd = new FormData()
-        fd.append('image', file, file.name)
-        console.log();
-        axios.post('http://127.0.0.1:8000/api/posts', fd)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    }
-    render() {
-        console.log(this.state.files);
-        const fd = new FormData(this.state.files[0])
-        const files = this.state.files.map(file => (
-        <li key={file.name}>
-            {file.name} - {file.size} bytes
-        </li>
-        ));
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
     return (
-        <div>
-            <input type="file" onChange={this.onChangeImage} />
-        </div>
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
     );
   }
 }
