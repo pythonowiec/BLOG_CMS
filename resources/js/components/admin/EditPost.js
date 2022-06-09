@@ -69,6 +69,7 @@ const EditPost = () =>{
                     title: 'Your work has been saved',
                     showConfirmButton: false,
                     timer: 2000,
+                    allowOutsideClick: false
                 })
             })
             .catch(function (error) {

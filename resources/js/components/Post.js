@@ -40,7 +40,17 @@ const Post = () =>{
                     <div className='col-1'></div>
                     <div className='col-11'>
                             <div className='post'>
-                                <img className='img-fluid' src={img2} alt="" />
+                                {(() => {
+                                        if (item.image != 'test') {
+                                            return (
+                                                <img className='img-fluid' src={`https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/${item.image}.jpg`} alt="" />
+                                            )
+                                        } else {
+                                            return (
+                                                <img className='img-fluid' src={img2} alt="" />
+                                            )
+                                        }
+                                })()}
                             </div>
                     </div>
                 </div>

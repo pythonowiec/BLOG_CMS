@@ -12,7 +12,7 @@ export default class AddPost extends React.Component {
         this.onChangeContent = this.onChangeContent.bind(this);
         this.onChangeImage = this.onChangeImage.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.state = {date: new Date(), content: [], title: null, image: null, isLoaded: false}
+        this.state = {date: new Date(), content: [], title: '', image: null, isLoaded: false, validation: []}
     }
     onChangeContent(e) {
         this.setState({
@@ -46,17 +46,24 @@ export default class AddPost extends React.Component {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: 'Your post has been saved',
                     showConfirmButton: false,
                     timer: 2000,
+                    allowOutsideClick: false
                 })
             })
-            .catch(function (error) {
+            .catch(function (response) {
+                const err = Object.values(response.response.data.message)
+                
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Something went wrong!',
-                    footer: '<a href="">Why do I have this issue?</a>'
+                    html:
+                        `${err.map(function(el){
+                            return `<li class='text-danger'>${el}</li>`
+        
+                        })}`
                   })
             });
             Swal.fire({

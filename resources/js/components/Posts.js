@@ -50,7 +50,7 @@ class Posts extends Component {
             return <div>Ładowanie...</div>;
         } else {
             return (
-                <div className='container'>
+                <div className='container mt-5'>
                     <div className="row p-0 page-header">
                         <div className="col-8 col-lg-8 p-0 m-0">
                             <Link to={`/${items[1].title.replace(' ', '-')}`}>
@@ -89,7 +89,17 @@ class Posts extends Component {
                         <div className='col-10'>
                             {items.map(item => (
                                 <div className='post' key={item.id} onMouseEnter={() => { this.setState({ post: { display: 'block', id: item.id } }) }} onMouseLeave={() => { this.setState({ post: { display: 'none', id: item.id } }) }}>
-                                    <img className='img-fluid' src={img2} alt="" />
+                                     {(() => {
+                                        if (item.image != 'test') {
+                                            return (
+                                                <img className='img-fluid' src={`https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/${item.image}.jpg`} alt="" />
+                                            )
+                                        } else {
+                                            return (
+                                                <img className='img-fluid' src={img2} alt="" />
+                                            )
+                                        }
+                                    })()}
                                     <p className='title'><Link to={`/${item.title.replace(' ', '-')}`}>{item.title}</Link></p>
                                     <p className='published'>Posted by Start Bootstrap on {new Date(item.created_at).toLocaleDateString('en-EN', this.state.options)}</p>
                                     {(() => {

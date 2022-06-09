@@ -6,6 +6,9 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;  
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use App\User;
 
 class PostController extends Controller
 {
@@ -38,22 +41,30 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|unique:posts|max:255',
+        $validation = Validator::make($request->all(), [ 
             'content' => 'required|',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
+            'title' => 'required|',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
         ]);
-        $img = $request->file('image');
-        $file = $img->storeOnCloudinary();
-        $id_img = $file->getPublicId();
-        $post = new Post;
-        $post->title = $request->title;
-        $post->content = $request->content;
-        $post->name = 'admin';
-        $post->views = '0';
-        $post->image = $id_img;
-        $post->save();
-        return response()->json($request->content, 200);
+        if($validation->fails()){
+            return response()->json(['message' => $validation->messages()], 500);
+           
+
+        }else{
+            $img = $request->file('image');
+            $file = $img->storeOnCloudinary();
+            $idImg = $file->getPublicId();
+            
+            $post = new Post;
+            $post->title = $request->title;
+            $post->content = $request->content;
+            $post->name = 'admin';
+            $post->views = '0';
+            $post->image = $idImg;
+            $post->save();
+            return response()->json(200);
+
+        }
 
 
     }
@@ -127,6 +138,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        $post = Post::find($id);
+        $post->delete();
+        cloudinary()->destroy($post->image);
+        return response()->json(200);
     }
 }

@@ -1,11 +1,14 @@
+import axios from "axios";
 import { divide } from "lodash";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";  
 
 
 class Posts extends Component {
     constructor(props) {
         super(props);
+        this.handleDelete = this.handleDelete.bind()
         this.state = {
             error: null,
             isLoaded: false,
@@ -15,7 +18,8 @@ class Posts extends Component {
                 id: 0
             },
             id: 0,
-            options: { year: 'numeric', month: 'long', day: 'numeric' }
+            options: { year: 'numeric', month: 'long', day: 'numeric' },
+            isDone: false
         };
     }
 
@@ -24,6 +28,7 @@ class Posts extends Component {
             .then(res => res.json())
             .then(
                 (result) => {
+                    console.log(result)
                     this.setState({
                         isLoaded: true,
                         items: result
@@ -40,6 +45,43 @@ class Posts extends Component {
                 }
             )
     }
+    handleDelete(e){
+        const id = e.target.getAttribute("data-id")
+        const index = e.target.getAttribute("data-index")
+        axios.delete(`http://127.0.0.1:8000/api/posts/${id}`)
+        .then(function (response) {
+            state.isDone = true
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Post has been deleted',
+                showConfirmButton: false,
+                timer: 2000,
+                allowOutsideClick: false
+            })
+            
+        })
+        .catch(function (response) {
+            console.log(response);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+              })
+        });
+        Swal.fire({
+            position: 'center',
+            title: 'Saving...',
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading()
+                if(this.state.isDone == true){
+                    Swal.close()
+                }
+            }
+        })
+        this.state.items.splice(index, 1)
+    }
     render() {
         const { error, isLoaded, items, post } = this.state;
         if (error) {
@@ -48,8 +90,15 @@ class Posts extends Component {
             return <div>Ładowanie...</div>;
         } else {
             return (
-                <div className='container'>
+                <div className='container mt-5'>
                     <div className='row'>
+                        <div className="col-10"></div>
+                        <div className="col-2">
+                            <button className='btn btn-secondary float-right'> Add new post</button>
+
+                        </div>
+                    </div>
+                    <div className='row mt-3'>
                         {/* <div className='col-1'></div>
                         <div className='col-10'> */}
                             <table className="table table-hover table-dark">
@@ -63,13 +112,13 @@ class Posts extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {items.map(item => (
-                                        <tr key={item.id}>
-                                            <th scope="row">{item.id}</th>
+                                    {items.map((item, index) => (
+                                        <tr key={index}>
+                                            <th scope="row">{index}</th>
                                             <td>{item.title}</td>
                                             <td>{item.image}</td>
                                             <td>{item.views}</td>
-                                            <td><Link to={`edit/${item.id}`}><i className="fa-regular fa-pen-to-square"></i> </Link> <i className="fa-regular fa-trash-can"></i></td>
+                                            <td><Link to={`../admin_panel/edit/${item.id}`}><i className="fa-regular fa-pen-to-square"></i></Link> <i className="fa-regular fa-trash-can" onClick={this.handleDelete} data-id={item.id} data-index={index}></i></td>
                                         </tr>
                                     ))}
                                 </tbody>

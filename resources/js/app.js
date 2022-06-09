@@ -29,8 +29,8 @@ ReactDOM.render(
         <Routes>
             <Route path="/" element={<Posts />} />
             <Route path="/:id" element={<Post/>} />
-            <Route path="admin_panel/add_post" element={<AddPost/>}/>
-            <Route path="admin_panel/" element={<AdminPosts/>}/>
+            <Route path="admin_panel/posts" element={<AdminPosts/>}/>
+            <Route path="admin_panel/add" element={<AddPost/>}/>
             <Route path="admin_panel/edit/:id" element={<EditPost/>}/>
             <Route path="/example" element={<Example/>}/>
         </Routes>

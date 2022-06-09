@@ -25,10 +25,10 @@ Route::get('editor', function () {
 
 Route::group(['prefix' => 'admin_panel'], function () {
     Auth::routes();
-    Route::get('/', function ($id) {
+    Route::get('/posts', function () {
         return view('admin');
-    })->middleware('auth')->name('posts');;
-    Route::get('/add_post', function () {
+    })->middleware('auth')->name('posts');
+    Route::get('/add', function () {
         return view('editor');
     })->middleware('auth')->name('add');
     Route::get('edit/{string}', function () {
