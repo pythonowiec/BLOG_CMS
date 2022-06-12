@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use App\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;  
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\User;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -43,7 +44,7 @@ class PostController extends Controller
     {
         $validation = Validator::make($request->all(), [ 
             'content' => 'required|',
-            'title' => 'required|',
+            'title' => 'required|unique:posts|max:255required|',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
         ]);
         if($validation->fails()){
@@ -58,7 +59,7 @@ class PostController extends Controller
             $post = new Post;
             $post->title = $request->title;
             $post->content = $request->content;
-            $post->name = 'admin';
+            $post->name = Auth::user()->name;
             $post->views = '0';
             $post->image = $idImg;
             $post->save();
@@ -80,9 +81,19 @@ class PostController extends Controller
         if(is_string($string)){
             $title = str_replace('-', ' ', $string);
             $post = DB::select('select * from posts where title = ?', [$title]);
+            $views = $post[0]->views + 1;
+            $id = $post[0]->id;
+            
+            DB::table('posts')
+                ->where('id', $id)
+                ->update([
+                        'views' => $views
+                        
+            ]);
         }
         if(is_numeric($string)){
             $post = DB::select('select * from posts where id = ?', [$string]);
+
         }
         // dd($post[0]);
         return response()->json($post, 200);
@@ -138,7 +149,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   
+    {
         $post = Post::find($id);
         $post->delete();
         cloudinary()->destroy($post->image);

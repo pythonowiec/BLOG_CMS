@@ -83,12 +83,19 @@ a:hover {
 }
 
 .title {
+  padding-top: 10px;
   padding-left: 15px;
 }
 
 .published {
   text-align: right;
   padding-right: 10px;
+}
+
+.views {
+  text-align: right;
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
 
 .showBtn {
@@ -244,6 +251,11 @@ a:hover {
     font-size: 0.6em;
     bottom: 0px;
   }
+
+  .showBtn {
+    height: 70px;
+    width: 100px;
+  }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
   .title-head {
@@ -267,6 +279,11 @@ a:hover {
   .published-head-s {
     font-size: 0.7em;
     bottom: 0px;
+  }
+
+  .showBtn {
+    height: 70px;
+    width: 130px;
   }
 }
 @media (min-width: 1200px) {
@@ -293,5 +310,10 @@ a:hover {
   .published-head-s {
     font-size: 1em;
     bottom: 0px;
+  }
+
+  .showBtn {
+    height: 100px;
+    width: 150px;
   }
 }

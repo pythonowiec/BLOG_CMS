@@ -6295,7 +6295,10 @@ var Post = function Post() {
           children: item.title
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
           className: "published-post",
-          children: ["Posted by Start Bootstrap on ", item.created_at]
+          children: ["Posted by ", item.name, " on ", item.created_at]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+          className: "views",
+          children: [item.views, " views"]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
           className: "content-post",
           dangerouslySetInnerHTML: {
@@ -6451,7 +6454,7 @@ var Posts = /*#__PURE__*/function (_Component) {
                     children: items[1].title
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                     className: "published-head",
-                    children: ["Posted by Start Bootstrap on ", new Date(items[1].created_at).toLocaleDateString('en-EN', this.state.options)]
+                    children: ["Posted by ", items[1].name, " on ", new Date(items[1].created_at).toLocaleDateString('en-EN', this.state.options)]
                   })]
                 })
               })
@@ -6471,7 +6474,7 @@ var Posts = /*#__PURE__*/function (_Component) {
                     children: items[2].title
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                     className: "published-head-s",
-                    children: ["Posted by Start Bootstrap on ", new Date(items[2].created_at).toLocaleDateString('en-EN', this.state.options)]
+                    children: ["Posted by ", items[2].name, " on ", new Date(items[2].created_at).toLocaleDateString('en-EN', this.state.options)]
                   })]
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
@@ -6488,7 +6491,7 @@ var Posts = /*#__PURE__*/function (_Component) {
                     children: items[3].title
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                     className: "published-head-s",
-                    children: ["Posted by Start Bootstrap on ", new Date(items[3].created_at).toLocaleDateString('en-EN', this.state.options)]
+                    children: ["Posted by ", items[3].name, " on ", new Date(items[3].created_at).toLocaleDateString('en-EN', this.state.options)]
                   })]
                 })
               })]
@@ -6540,7 +6543,10 @@ var Posts = /*#__PURE__*/function (_Component) {
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
                     className: "published",
-                    children: ["Posted by Start Bootstrap on ", new Date(item.created_at).toLocaleDateString('en-EN', _this3.state.options)]
+                    children: ["Posted by ", item.name, " on ", new Date(item.created_at).toLocaleDateString('en-EN', _this3.state.options)]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
+                    className: "views",
+                    children: [item.views, " views"]
                   }), function () {
                     if (post['id'] == item.id) {
                       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {

@@ -59,7 +59,7 @@ class Posts extends Component {
                                         backgroundImage: `url(${img2})`
                                     }}></div>
                                     <p className='title-head'>{items[1].title}</p>
-                                    <div className='published-head'>Posted by Start Bootstrap on {new Date(items[1].created_at).toLocaleDateString('en-EN', this.state.options)}</div>
+                                    <div className='published-head'>Posted by {items[1].name} on {new Date(items[1].created_at).toLocaleDateString('en-EN', this.state.options)}</div>
                                 </div>
                             </Link>
                         </div>
@@ -70,7 +70,7 @@ class Posts extends Component {
                                         backgroundImage: `url(${img})`
                                     }}></div>
                                     <p className='title-head-s'>{items[2].title}</p>
-                                    <div className='published-head-s'>Posted by Start Bootstrap on {new Date(items[2].created_at).toLocaleDateString('en-EN', this.state.options)}</div>
+                                    <div className='published-head-s'>Posted by {items[2].name} on {new Date(items[2].created_at).toLocaleDateString('en-EN', this.state.options)}</div>
                                 </div>
                             </Link>
                             <Link to={`/${items[3].title.replace(' ', '-')}`}>
@@ -79,7 +79,7 @@ class Posts extends Component {
                                         backgroundImage: `url(${img})`
                                     }}></div>
                                     <p className='title-head-s'>{items[3].title}</p>
-                                    <div className='published-head-s'>Posted by Start Bootstrap on {new Date(items[3].created_at).toLocaleDateString('en-EN', this.state.options)}</div>
+                                    <div className='published-head-s'>Posted by {items[3].name} on {new Date(items[3].created_at).toLocaleDateString('en-EN', this.state.options)}</div>
                                 </div>
                             </Link>
                         </div>
@@ -101,7 +101,8 @@ class Posts extends Component {
                                         }
                                     })()}
                                     <p className='title'><Link to={`/${item.title.replace(' ', '-')}`}>{item.title}</Link></p>
-                                    <p className='published'>Posted by Start Bootstrap on {new Date(item.created_at).toLocaleDateString('en-EN', this.state.options)}</p>
+                                    <p className='published'>Posted by {item.name} on {new Date(item.created_at).toLocaleDateString('en-EN', this.state.options)}</p>
+                                    <p className="views">{item.views} views</p>
                                     {(() => {
                                         if (post['id'] == item.id) {
                                             return (

@@ -56,7 +56,8 @@ const Post = () =>{
                 </div>
                 <div className="row">
                     <p className='title-post'>{item.title}</p>
-                    <p className='published-post'>Posted by Start Bootstrap on {item.created_at}</p>
+                    <p className='published-post'>Posted by {item.name} on {item.created_at}</p>
+                    <p className="views">{item.views} views</p>
                     <p className="content-post" dangerouslySetInnerHTML={{
                         __html: item.content
                     }}></p>

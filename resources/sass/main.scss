@@ -71,11 +71,17 @@ a:hover{
     opacity: .85;
 }
 .title{
+    padding-top: 10px;
     padding-left: 15px;
 }
 .published{
     text-align: right;
     padding-right: 10px;
+}
+.views{
+    text-align: right;
+    padding-right: 10px;
+    padding-bottom: 10px;
 }
 .showBtn{
     position: absolute;
@@ -212,6 +218,10 @@ a:hover{
         font-size: .6em;
         bottom: 0px;
     }
+    .showBtn{
+        height: 70px;
+        width: 100px;
+    }
 
 }
 @media (min-width: 992px) and (max-width: 1200px){
@@ -234,6 +244,10 @@ a:hover{
     .published-head-s{
         font-size: .7em;
         bottom: 0px;
+    }
+    .showBtn{
+        height: 70px;
+        width: 130px;
     }
 
 }
@@ -258,6 +272,10 @@ a:hover{
     .published-head-s{
         font-size: 1em;
         bottom: 0px;
+    }
+    .showBtn{
+        height: 100px;
+        width: 150px;
     }
 
 }
