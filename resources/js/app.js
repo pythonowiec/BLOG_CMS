@@ -28,7 +28,7 @@ ReactDOM.render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Posts />} />
-            <Route path="/:id" element={<Post/>} />
+            <Route path="posts/:id" element={<Post/>} />
             <Route path="admin_panel/posts" element={<AdminPosts/>}/>
             <Route path="admin_panel/add" element={<AddPost/>}/>
             <Route path="admin_panel/edit/:id" element={<EditPost/>}/>

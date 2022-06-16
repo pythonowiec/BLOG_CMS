@@ -20,7 +20,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = DB::table('posts')
+                ->orderBy('created_at', 'desc')
+                ->get();
         return response()->json($posts, 200);
     }
 
@@ -78,7 +80,12 @@ class PostController extends Controller
      */
     public function show($string)
     {   
-        if(is_string($string)){
+       
+        if(intval($string)){
+            $post = DB::select('select * from posts where id = ?', [$string]);
+
+        }
+        else if(is_string($string)){
             $title = str_replace('-', ' ', $string);
             $post = DB::select('select * from posts where title = ?', [$title]);
             $views = $post[0]->views + 1;
@@ -88,13 +95,9 @@ class PostController extends Controller
                 ->where('id', $id)
                 ->update([
                         'views' => $views
-                        
             ]);
         }
-        if(is_numeric($string)){
-            $post = DB::select('select * from posts where id = ?', [$string]);
-
-        }
+        
         // dd($post[0]);
         return response()->json($post, 200);
     }

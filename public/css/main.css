@@ -25,7 +25,8 @@ a:hover {
   position: relative;
 }
 
-.header-image, .header-image-s {
+.header-image,
+.header-image-s {
   opacity: 0.85;
 }
 
@@ -39,7 +40,8 @@ a:hover {
   background-size: cover;
 }
 
-.header-image:hover, .header-image-s:hover {
+.header-image:hover,
+.header-image-s:hover {
   opacity: 1;
 }
 
@@ -93,6 +95,7 @@ a:hover {
 }
 
 .views {
+  color: white;
   text-align: right;
   padding-right: 10px;
   padding-bottom: 10px;
@@ -172,6 +175,31 @@ a:hover {
   text-overflow: ellipsis;
 }
 
+.loader {
+  position: absolute;
+  margin: auto;
+  -webkit-animation: spinner 4s linear infinite;
+          animation: spinner 4s linear infinite;
+  top: 30%;
+}
+
+@-webkit-keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @media (max-width: 576px) {
   .title-head {
     font-size: 0.56em;
@@ -201,6 +229,15 @@ a:hover {
   .showBtn {
     display: none !important;
   }
+
+  .loader {
+    width: 100px;
+    height: 100px;
+    border: 10px solid #EAF0F6;
+    border-radius: 50%;
+    border-top: 10px solid #212529;
+    left: -webkit-calc(50% - 50px);
+  }
 }
 @media (min-width: 576px) and (max-width: 768px) {
   .title-head {
@@ -227,6 +264,15 @@ a:hover {
 
   .showBtn {
     display: none !important;
+  }
+
+  .loader {
+    width: 100px;
+    height: 100px;
+    border: 10px solid #EAF0F6;
+    border-radius: 50%;
+    border-top: 10px solid #212529;
+    left: -webkit-calc(50% - 50px);
   }
 }
 @media (min-width: 768px) and (max-width: 992px) {
@@ -256,6 +302,15 @@ a:hover {
     height: 70px;
     width: 100px;
   }
+
+  .loader {
+    width: 150px;
+    height: 150px;
+    border: 15px solid #EAF0F6;
+    border-radius: 50%;
+    border-top: 15px solid #212529;
+    left: -webkit-calc(50% - 125px);
+  }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
   .title-head {
@@ -284,6 +339,15 @@ a:hover {
   .showBtn {
     height: 70px;
     width: 130px;
+  }
+
+  .loader {
+    width: 200px;
+    height: 200px;
+    border: 20px solid #EAF0F6;
+    border-radius: 50%;
+    border-top: 20px solid #212529;
+    left: -webkit-calc(50% - 100px);
   }
 }
 @media (min-width: 1200px) {
@@ -315,5 +379,14 @@ a:hover {
   .showBtn {
     height: 100px;
     width: 150px;
+  }
+
+  .loader {
+    width: 200px;
+    height: 200px;
+    border: 20px solid #EAF0F6;
+    border-radius: 50%;
+    border-top: 20px solid #212529;
+    left: -webkit-calc(50% - 100px);
   }
 }

@@ -6021,7 +6021,7 @@ react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime
       path: "/",
       element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Posts__WEBPACK_IMPORTED_MODULE_3__["default"], {})
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
-      path: "/:id",
+      path: "posts/:id",
       element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Post__WEBPACK_IMPORTED_MODULE_4__["default"], {})
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
       path: "admin_panel/posts",
@@ -6258,7 +6258,7 @@ var Post = function Post() {
     });
   } else if (!isLoaded) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      children: "\u0141adowanie..."
+      className: "loader"
     });
   } else {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
@@ -6431,7 +6431,7 @@ var Posts = /*#__PURE__*/function (_Component) {
         });
       } else if (!isLoaded) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          children: "\u0141adowanie..."
+          className: "loader"
         });
       } else {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -6441,13 +6441,13 @@ var Posts = /*#__PURE__*/function (_Component) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
               className: "col-8 col-lg-8 p-0 m-0",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-                to: "/".concat(items[1].title.replace(' ', '-')),
+                to: "/posts/".concat(items[1].title.replace(' ', '-')),
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "header-item",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                     className: "header-image",
                     style: {
-                      backgroundImage: "url(".concat(_images_im2_jpg__WEBPACK_IMPORTED_MODULE_3__["default"], ")")
+                      backgroundImage: "url(https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/".concat(items[1].image, ")")
                     }
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                     className: "title-head",
@@ -6461,13 +6461,13 @@ var Posts = /*#__PURE__*/function (_Component) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
               className: "col-4 p-0 m-0 ",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-                to: "/".concat(items[2].title.replace(' ', '-')),
+                to: "/posts/".concat(items[2].title.replace(' ', '-')),
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "header-item",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                     className: "header-image-s",
                     style: {
-                      backgroundImage: "url(".concat(_images_im_jpg__WEBPACK_IMPORTED_MODULE_2__["default"], ")")
+                      backgroundImage: "url(https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/".concat(items[2].image, ")")
                     }
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                     className: "title-head-s",
@@ -6478,13 +6478,13 @@ var Posts = /*#__PURE__*/function (_Component) {
                   })]
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-                to: "/".concat(items[3].title.replace(' ', '-')),
+                to: "/posts/".concat(items[3].title.replace(' ', '-')),
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "header-item",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                     className: "header-image-s",
                     style: {
-                      backgroundImage: "url(".concat(_images_im_jpg__WEBPACK_IMPORTED_MODULE_2__["default"], ")")
+                      backgroundImage: "url(https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/".concat(items[3].image, ")")
                     }
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                     className: "title-head-s",
@@ -6550,7 +6550,7 @@ var Posts = /*#__PURE__*/function (_Component) {
                   }), function () {
                     if (post['id'] == item.id) {
                       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-                        to: "/".concat(item.title.replace(' ', '-')),
+                        to: "/posts/".concat(item.title.replace(' ', '-')),
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
                           className: "showBtn",
                           onClick: function onClick() {
@@ -6746,7 +6746,7 @@ var EditPost = function EditPost() {
     });
   } else if (!isLoaded) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      children: "\u0141adowanie..."
+      className: "loader"
     });
   } else {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -7014,7 +7014,7 @@ var Posts = /*#__PURE__*/function (_Component) {
         });
       } else if (!isLoaded) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          children: "\u0141adowanie..."
+          className: "loader"
         });
       } else {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {

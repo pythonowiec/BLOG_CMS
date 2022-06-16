@@ -47,16 +47,16 @@ class Posts extends Component {
         if (error) {
             return <div>Błąd: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div>Ładowanie...</div>;
+            return <div className="loader"></div>;
         } else {
             return (
                 <div className='container mt-5'>
                     <div className="row p-0 page-header">
                         <div className="col-8 col-lg-8 p-0 m-0">
-                            <Link to={`/${items[1].title.replace(' ', '-')}`}>
+                            <Link to={`/posts/${items[1].title.replace(' ', '-')}`}>
                                 <div className='header-item'>
                                     <div className='header-image' style={{
-                                        backgroundImage: `url(${img2})`
+                                        backgroundImage: `url(https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/${items[1].image})`
                                     }}></div>
                                     <p className='title-head'>{items[1].title}</p>
                                     <div className='published-head'>Posted by {items[1].name} on {new Date(items[1].created_at).toLocaleDateString('en-EN', this.state.options)}</div>
@@ -64,19 +64,19 @@ class Posts extends Component {
                             </Link>
                         </div>
                         <div className="col-4 p-0 m-0 " >
-                            <Link to={`/${items[2].title.replace(' ', '-')}`}>
+                            <Link to={`/posts/${items[2].title.replace(' ', '-')}`}>
                                 <div className='header-item'>
                                     <div className='header-image-s' style={{
-                                        backgroundImage: `url(${img})`
+                                        backgroundImage: `url(https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/${items[2].image})`
                                     }}></div>
                                     <p className='title-head-s'>{items[2].title}</p>
                                     <div className='published-head-s'>Posted by {items[2].name} on {new Date(items[2].created_at).toLocaleDateString('en-EN', this.state.options)}</div>
                                 </div>
                             </Link>
-                            <Link to={`/${items[3].title.replace(' ', '-')}`}>
+                            <Link to={`/posts/${items[3].title.replace(' ', '-')}`}>
                                 <div className='header-item' >
                                     <div className='header-image-s' style={{
-                                        backgroundImage: `url(${img})`
+                                        backgroundImage: `url(https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/${items[3].image})`
                                     }}></div>
                                     <p className='title-head-s'>{items[3].title}</p>
                                     <div className='published-head-s'>Posted by {items[3].name} on {new Date(items[3].created_at).toLocaleDateString('en-EN', this.state.options)}</div>
@@ -106,7 +106,7 @@ class Posts extends Component {
                                     {(() => {
                                         if (post['id'] == item.id) {
                                             return (
-                                                <Link to={`/${item.title.replace(' ', '-')}`}><button className='showBtn' onClick={() => { this.setState({ id: item.id }) }}  id={item.id} style={{ display: `${post['display']}` }}>Show More</button></Link>
+                                                <Link to={`/posts/${item.title.replace(' ', '-')}`}><button className='showBtn' onClick={() => { this.setState({ id: item.id }) }}  id={item.id} style={{ display: `${post['display']}` }}>Show More</button></Link>
                                             )
                                         } else {
                                             return (

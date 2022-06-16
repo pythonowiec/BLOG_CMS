@@ -43,7 +43,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                        @if(Auth::user() && Request::is('admin_panel/*'))
+                        @if(Auth::user() && Request::is('admin_panel') OR Request::is('admin_panel/*'))
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

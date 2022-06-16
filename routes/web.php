@@ -16,12 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/{string}', function () {
+Route::get('posts/{string}', function () {
     return view('show');
 });
 Route::get('editor', function () {
     return view('editor');
 });
+
+
 
 Route::group(['prefix' => 'admin_panel'], function () {
     Auth::routes();
@@ -31,9 +33,10 @@ Route::group(['prefix' => 'admin_panel'], function () {
     Route::get('/add', function () {
         return view('editor');
     })->middleware('auth')->name('add');
-    Route::get('edit/{string}', function () {
+    Route::get('/edit/{string}', function () {
         return view('edit');
     })->middleware('auth')->name('edit');
+   
     
 });
 // Route::name('admin.')->group(function () {

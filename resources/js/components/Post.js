@@ -32,7 +32,7 @@ const Post = () =>{
     if (error) {
         return <div>Błąd: {error.message}</div>;
     } else if (!isLoaded) {
-        return <div>Ładowanie...</div>;
+        return <div className="loader"></div>;
     } else {
         return (
             <div className='container'>
