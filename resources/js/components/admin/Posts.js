@@ -3,12 +3,12 @@ import { divide } from "lodash";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";  
-
+import Profile from "../Profile";
 
 class Posts extends Component {
     constructor(props) {
         super(props);
-        this.handleDelete = this.handleDelete.bind()
+        this.handleDelete = this.handleDelete.bind(this);
         this.state = {
             error: null,
             isLoaded: false,
@@ -21,6 +21,7 @@ class Posts extends Component {
             options: { year: 'numeric', month: 'long', day: 'numeric' },
             isDone: false
         };
+
     }
 
     componentDidMount() {
@@ -34,23 +35,24 @@ class Posts extends Component {
                         items: result
                     });
                 },
-                // Uwaga: to ważne, żeby obsłużyć błędy tutaj, a
-                // nie w bloku catch(), aby nie przetwarzać błędów
-                // mających swoje źródło w komponencie.
                 (error) => {
                     this.setState({
                         isLoaded: true,
-                        error
                     });
                 }
-            )
+                )
     }
-    handleDelete(e){
+    handleDelete = (e) => {
         const id = e.target.getAttribute("data-id")
         const index = e.target.getAttribute("data-index")
+        const items = this.state.items
+        items.splice(index, 1)
+        console.log(items)
+        this.setState({
+            items: items
+        })
         axios.delete(`http://127.0.0.1:8000/api/posts/${id}`)
         .then(function (response) {
-            state.isDone = true
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -60,30 +62,34 @@ class Posts extends Component {
                 allowOutsideClick: false
             })
             
-        })
-        .catch(function (response) {
-            console.log(response);
+            })
+            .catch(function (response) {
+                console.log(response);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
+            });
             Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-              })
-        });
-        Swal.fire({
-            position: 'center',
-            title: 'Saving...',
-            showConfirmButton: false,
-            didOpen: () => {
-                Swal.showLoading()
-                if(this.state.isDone == true){
-                    Swal.close()
+                position: 'center',
+                title: 'Saving...',
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                    if(this.state.isDone == true){
+                        Swal.close()
+                    }
                 }
-            }
         })
-        this.state.items.splice(index, 1)
     }
     render() {
         const { error, isLoaded, items, post } = this.state;
+        let info;
+        console.log(items.length)
+        if(items.length === 0){
+            info = <div className="text-white text-center">You dont't have any posts</div>
+        }
         if (error) {
             return <div>Błąd: {error.message}</div>;
         } else if (!isLoaded) {
@@ -91,10 +97,11 @@ class Posts extends Component {
         } else {
             return (
                 <div className='container mt-5'>
+                    <Profile/>
                     <div className='row'>
                         <div className="col-10"></div>
                         <div className="col-2">
-                            <button className='btn btn-secondary float-right'> Add new post</button>
+                        <Link to={'../admin_panel/add/'}><button className='btn btn-secondary float-right'> Add new post</button></Link>
 
                         </div>
                     </div>
@@ -118,11 +125,12 @@ class Posts extends Component {
                                             <td>{item.title}</td>
                                             <td>{item.image}</td>
                                             <td>{item.views}</td>
-                                            <td><Link to={`../admin_panel/edit/${item.id}`}><i className="fa-regular fa-pen-to-square"></i></Link> <i className="fa-regular fa-trash-can" onClick={this.handleDelete} data-id={item.id} data-index={index}></i></td>
+                                            <td><Link to={`../admin_panel/edit/${item.id}`}><i className="fa-regular fa-pen-to-square"></i></Link> <i className="fa-regular fa-trash-can" onClick={this.handleDelete.bind(this)} data-id={item.id} data-index={index}></i></td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
+                            {info}
                         {/* </div>
                         <div className='col-1'></div> */}
                     </div>

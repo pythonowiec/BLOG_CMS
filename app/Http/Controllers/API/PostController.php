@@ -44,9 +44,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        dd(auth()->guard('api')->user()->id);
         $validation = Validator::make($request->all(), [ 
             'content' => 'required|',
-            'title' => 'required|unique:posts|max:255required|',
+            'title' => 'required|unique:posts|max:255|required|',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
         ]);
         if($validation->fails()){
@@ -61,7 +62,7 @@ class PostController extends Controller
             $post = new Post;
             $post->title = $request->title;
             $post->content = $request->content;
-            $post->name = Auth::user()->name;
+            $post->name = 'Admin';
             $post->views = '0';
             $post->image = $idImg;
             $post->save();
@@ -157,5 +158,10 @@ class PostController extends Controller
         $post->delete();
         cloudinary()->destroy($post->image);
         return response()->json(200);
+    }
+
+    public function getUserLogin()
+    {
+        
     }
 }

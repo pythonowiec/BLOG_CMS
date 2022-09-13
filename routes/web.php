@@ -19,17 +19,22 @@ Route::get('/', function () {
 Route::get('posts/{string}', function () {
     return view('show');
 });
-Route::get('editor', function () {
+Route::get('example', function () {
     return view('editor');
 });
-
+Route::get('profile', function () {
+    return view('profile');
+});
 
 
 Route::group(['prefix' => 'admin_panel'], function () {
     Auth::routes();
+    Route::get('/', function() {
+        return redirect('admin_panel/posts');
+    })->name('user');
     Route::get('/posts', function () {
         return view('admin');
-    })->middleware('auth')->name('posts');
+    })->name('posts');
     Route::get('/add', function () {
         return view('editor');
     })->middleware('auth')->name('add');
@@ -47,3 +52,7 @@ Route::group(['prefix' => 'admin_panel'], function () {
 // });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+

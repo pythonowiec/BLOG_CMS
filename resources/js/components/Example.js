@@ -1,35 +1,11 @@
-import React, {Component} from 'react';
-import Dropzone from 'react-dropzone';
+import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
-class Example extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: ''};
+const Example = () => {
+  const { loginWithRedirect } = useAuth0();
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  return <button onClick={() => loginWithRedirect()}>Log In</button>;
+};
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
+export default Example;
 
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    );
-  }
-}
-
-export default Example
