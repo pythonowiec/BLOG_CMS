@@ -143,9 +143,9 @@ class Posts extends Component {
                                             )
                                         }
                                     })()}
-                                {info}
                                 </div>
                             ))}
+                            {info}
                         </div>
                         <div className='col-1'></div>
                     </div>
