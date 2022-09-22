@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Editor } from '@tinymce/tinymce-react';
 import 'axios';
-
+import Swal from "sweetalert2";
 
 const EditPost = () =>{
     const [error, setError] = useState(null);

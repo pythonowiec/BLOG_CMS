@@ -37,10 +37,10 @@ Route::group(['prefix' => 'admin_panel'], function () {
     })->name('posts');
     Route::get('/add', function () {
         return view('editor');
-    })->middleware('auth')->name('add');
+    })->name('add');
     Route::get('/edit/{string}', function () {
         return view('edit');
-    })->middleware('auth')->name('edit');
+    })->name('edit');
    
     
 });
@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin_panel'], function () {
 //     Auth::routes();
 //     Route::get('/', function () {
 //         return view('editor');
-//     })->middleware('auth');
+//     });
 // });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

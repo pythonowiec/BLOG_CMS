@@ -44,7 +44,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        dd(auth()->guard('api')->user()->id);
         $validation = Validator::make($request->all(), [ 
             'content' => 'required|',
             'title' => 'required|unique:posts|max:255|required|',
@@ -62,7 +61,7 @@ class PostController extends Controller
             $post = new Post;
             $post->title = $request->title;
             $post->content = $request->content;
-            $post->name = 'Admin';
+            $post->name = $request->name;
             $post->views = '0';
             $post->image = $idImg;
             $post->save();

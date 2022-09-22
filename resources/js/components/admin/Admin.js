@@ -12,10 +12,10 @@ class Admin extends React.Component {
 
     render() {
         return (
-            <div class="card mt-5 bg-dark ">
-                <div class="card-header text-white">Welcome in admin panel</div>
+            <div className="card mt-5 bg-dark ">
+                <div className="card-header text-white">Welcome in admin panel</div>
 
-                <div class="card-body text-white">
+                <div className="card-body text-white">
                 </div>
             </div>
         );

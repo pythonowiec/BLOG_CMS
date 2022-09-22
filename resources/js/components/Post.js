@@ -60,7 +60,7 @@ const Post = () =>{
                         __html: item.content
                     }}></p>
                 </div>
-                <div class="row">
+                <div className="row">
                     <DiscussionEmbed
                         shortname='carblog'
                         config={

@@ -3,7 +3,7 @@ import { divide } from "lodash";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";  
-import Profile from "../Profile";
+
 
 class Posts extends Component {
     constructor(props) {
@@ -97,7 +97,6 @@ class Posts extends Component {
         } else {
             return (
                 <div className='container mt-5'>
-                    <Profile/>
                     <div className='row'>
                         <div className="col-10"></div>
                         <div className="col-2">
