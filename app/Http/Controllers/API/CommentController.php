@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\User;
-use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,10 +20,6 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')
-                ->orderBy('created_at', 'desc')
-                ->get();
-        return response()->json($posts, 200);
     }
 
     /**
@@ -46,25 +42,20 @@ class PostController extends Controller
     {
         $validation = Validator::make($request->all(), [ 
             'content' => 'required|',
-            'title' => 'required|unique:posts|max:255|required|',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+            'nickname' => 'required|unique:comments|max:255|required|',
         ]);
         if($validation->fails()){
             return response()->json(['message' => $validation->messages()], 500);
            
 
         }else{
-            $img = $request->file('image');
-            $file = $img->storeOnCloudinary();
-            $idImg = $file->getPublicId();
-            
-            $post = new Post;
-            $post->title = $request->title;
-            $post->content = $request->content;
-            $post->name = $request->name;
-            $post->views = '0';
-            $post->image = $idImg;
-            $post->save();
+            $comment = new Comment;
+            $comment->content = $request->content;
+            $comment->nickname = $request->nickname;
+            $comment->likes = 0;
+            $comment->dislikes = 0;
+            $comment->post = $request->id;
+            $comment->save();
             return response()->json(200);
 
         }
@@ -78,32 +69,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($string)
+    public function show($id)
     {   
-       
-        if(intval($string)){
-            $post = DB::select('select * from posts where id = ?', [$string]);
-
-        }
-        else if(is_string($string)){
-            $title = str_replace('-', ' ', $string);
-            $post = DB::select('select * from posts where title = ?', [$title]);
-            $views = $post[0]->views + 1;
-            $id = $post[0]->id;
-            
-            DB::table('posts')
-            ->where('id', $id)
-            ->update([
-                'views' => $views
-            ]);
-        }
+        $comments = DB::table('comments')
+        ->where('post', $id)
+        ->get();
         
-        // dd($post[0]);
-        return response()->json([
-            'post' => $post,
-            'views' => $views
-
-        ], 200);
+        return response()->json($comments, 200);
     }
 
     /**
@@ -161,10 +133,5 @@ class PostController extends Controller
         $post->delete();
         cloudinary()->destroy($post->image);
         return response()->json(200);
-    }
-
-    public function getUserLogin()
-    {
-        
     }
 }

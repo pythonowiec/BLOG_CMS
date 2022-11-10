@@ -31,20 +31,17 @@ class Posts extends Component {
                         isLoaded: true,
                         items: result
                     });
-                    if(result.length > 3){
+                    if (result.length > 3) {
                         this.setState({
-                            header: result.splice(0,3),
+                            header: result.splice(0, 3),
                         })
-                   }
-                   else{
-                    this.setState({
-                        header: []
-                    })
-                   }
+                    }
+                    else {
+                        this.setState({
+                            header: []
+                        })
+                    }
                 },
-                // Uwaga: to ważne, żeby obsłużyć błędy tutaj, a
-                // nie w bloku catch(), aby nie przetwarzać błędów
-                // mających swoje źródło w komponencie.
                 (error) => {
                     this.setState({
                         isLoaded: true,
@@ -57,10 +54,10 @@ class Posts extends Component {
         const { error, isLoaded, post, items, header } = this.state;
         let info;
         console.log(header, items)
-        if(items.length === 0 || header.length === 0){
+        if (items.length === 0 && header.length === 0) {
             info = <div className="text-white text-center">I dont't published any posts. See You later.</div>
         }
-        
+
         if (error) {
             return <div>Błąd: {error.message}</div>;
         } else if (!isLoaded) {
@@ -92,7 +89,7 @@ class Posts extends Component {
                                                 <p className='title-head-s'>{header[1].title}</p>
                                                 <div className='published-head-s'>Posted by {header[1].name} on {new Date(header[1].created_at).toLocaleDateString('en-EN', this.state.options)}</div>
                                             </div>
-                                        </Link> 
+                                        </Link>
                                         <Link to={`/posts/${header[2].title.replace(' ', '-')}`}>
                                             <div className='header-item' >
                                                 <div className='header-image-s' style={{
@@ -105,8 +102,8 @@ class Posts extends Component {
                                     </div>
                                 </div>
                             )
-                        }else{
-                            return(
+                        } else {
+                            return (
                                 <div></div>
                             )
                         }
@@ -116,7 +113,7 @@ class Posts extends Component {
                         <div className='col-10'>
                             {items.map(item => (
                                 <div className='post' key={item.id} onMouseEnter={() => { this.setState({ post: { display: 'block', id: item.id } }) }} onMouseLeave={() => { this.setState({ post: { display: 'none', id: item.id } }) }}>
-                                     {(() => {
+                                    {(() => {
                                         if (item.image != 'test') {
                                             return (
                                                 <img className='img-fluid' src={`https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/${item.image}.jpg`} alt="" />
@@ -135,7 +132,7 @@ class Posts extends Component {
                                     {(() => {
                                         if (post['id'] == item.id) {
                                             return (
-                                                <Link to={`/posts/${item.title.replace(' ', '-')}`}><button className='showBtn' onClick={() => { this.setState({ id: item.id }) }}  id={item.id} style={{ display: `${post['display']}` }}>Show More</button></Link>
+                                                <Link to={`/posts/${item.title.replace(' ', '-')}`}><button className='showBtn' onClick={() => { this.setState({ id: item.id }) }} id={item.id} style={{ display: `${post['display']}` }}>Show More</button></Link>
                                             )
                                         } else {
                                             return (

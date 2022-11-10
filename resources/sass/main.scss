@@ -191,6 +191,23 @@
     animation: spinner 4s linear infinite;
     top: 30%;
   }
+
+  .comment-content{
+    background-color: #313438 !important;
+    color: white !important;
+  }
+  .comment-nick{
+    background-color: #313438 !important;
+    color: white !important;
+  }
+  .comment-label{
+    color: white !important;
+    left: 5px !important;
+  }
+  .comments{
+    color:white !important;
+    background-color: #313438 !important;
+  }
   
   @-webkit-keyframes spinner {
     0% {
