@@ -212,6 +212,27 @@ a:hover {
   background-color: #313438 !important;
 }
 
+.like {
+  height: 24px;
+  width: 24px;
+  vertical-align: baseline;
+  margin-right: 5px;
+}
+
+.dislike {
+  vertical-align: sub;
+  margin-right: 5px;
+  margin-left: 10px;
+}
+
+.like-text {
+  font-size: 24px;
+}
+
+.dislike-text {
+  font-size: 24px;
+}
+
 @-webkit-keyframes spinner {
   0% {
     transform: rotate(0deg);

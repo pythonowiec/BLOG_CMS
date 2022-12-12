@@ -26,19 +26,19 @@ function Navigation() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto">
 
-                            <li class="dropdown dropdown-notifications">
-                                <a href="#notifications-panel" class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <li className="dropdown dropdown-notifications">
+                                <a href="#notifications-panel" className="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <Bell data-count="0" className="notification-icon" />
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-dark">
-                                    <div class="dropdown-toolbar">
-                                        <div class="dropdown-toolbar-actions">
+                                <div className="dropdown-menu dropdown-menu-dark">
+                                    <div className="dropdown-toolbar">
+                                        <div className="dropdown-toolbar-actions">
                                             <a href="#">Mark all as read</a>
                                         </div>
-                                        <h3 class="dropdown-toolbar-title">Notifications (<span class="notif-count">0</span>)</h3>
+                                        <h3 className="dropdown-toolbar-title">Notifications (<span className="notif-count">0</span>)</h3>
                                     </div>
-                                    <div class="dropdown-footer text-center">
+                                    <div className="dropdown-footer text-center">
                                         <a href="#">View All</a>
                                     </div>
                                 </div>

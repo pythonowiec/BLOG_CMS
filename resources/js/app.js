@@ -27,7 +27,6 @@ import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
 import Navigation from './components/Navigation'; 
 
 
- 
 const ProtectedRoute = ({ component, ...args }) => {
     const Component = withAuthenticationRequired(component, args);
     return <Component />;

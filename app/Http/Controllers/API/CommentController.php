@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\User;
+use App\Models\Voter;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -42,7 +43,7 @@ class CommentController extends Controller
     {
         $validation = Validator::make($request->all(), [ 
             'content' => 'required|',
-            'nickname' => 'required|unique:comments|max:255|required|',
+            'nickname' => 'required|max:255|required|',
         ]);
         if($validation->fails()){
             return response()->json(['message' => $validation->messages()], 500);
@@ -71,11 +72,23 @@ class CommentController extends Controller
      */
     public function show($id)
     {   
+        $visitors = (object) [];
         $comments = DB::table('comments')
         ->where('post', $id)
         ->get();
-        
-        return response()->json($comments, 200);
+        $this->getLikes($id);
+        $this->getDislikes($id);
+        foreach ($comments as $key => $comment) {
+            $this->getVisitors($comment->id);
+            $visitors->{$comment->id} = $this->visitors;
+            
+        }
+        return response()->json([
+            'comments' => $comments,
+            'likes'=> $this->likes,
+            'dislikes'=> $this->dislikes,
+            'visitors'=> $visitors
+        ], 200);
     }
 
     /**
@@ -98,27 +111,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $id_img = $request->id_img;
-        if($request->file('image')){
-            $img = $request->file('image');
-            $file = $img->storeOnCloudinary();
-            $id_img = $file->getPublicId();
-        }
-        // $post = Post::find($id);
-        // $post->title = $request->title;
-        // $post->content = $request->content;
-        // $post->image = $request->image;
-        // $post->save();
-
-        $post = DB::table('posts')
-                ->where('id', $id)
-                ->update([
-                        'title' => $request->title,
-                        'content' => $request->content,
-                        'image' => $id_img
-        ]);
-        return response()->json($post, 200);
+        //
     }
 
     /**
@@ -129,9 +122,88 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
-        $post->delete();
-        cloudinary()->destroy($post->image);
+        //
+    }
+
+    public function addLike(Request $request)
+    {
+        if($request->info == 'add'){
+            $voter = new Voter;
+            $voter->post = $request->id;
+            $voter->vote = $request->type;
+            $voter->visitor = $request->voter;
+            $voter->comment = $request->commID;
+            $voter->save();
+
+        }else{
+            DB::table('voters')->where('visitor', $request->voter)->where('post', $request->id)->delete();
+
+        }
+
+        foreach ($request->likes as $key => $like) {
+            $post = DB::table('comments')
+                    ->where('id', $like['id'])
+                    ->update([
+                            'likes' => $like['likes'],
+    
+            ]);
+            
+        }
         return response()->json(200);
     }
+    public function addDislike(Request $request)
+    {
+        if($request->info == 'add'){
+            $voter = new Voter;
+            $voter->post = $request->id;
+            $voter->vote = $request->type;
+            $voter->visitor = $request->voter;
+            $voter->comment = $request->commID;
+            $voter->save();
+
+        }else{
+            DB::table('voters')->where('visitor', $request->voter)->where('post', $request->id)->delete();
+
+        }
+
+        foreach ($request->dislikes as $key => $dislike) {
+            $post = DB::table('comments')
+                    ->where('id', $dislike['id'])
+                    ->update([
+                            'dislikes' => $dislike['dislikes'],
+    
+            ]);
+            
+        }
+        return response()->json(200);
+    }
+
+    public function getLikes($id){
+        $this->likes = DB::select('select likes, id from comments where post = ?', [$id]);
+        return $this->likes;
+    }
+
+    public function getDislikes($id){
+        $this->dislikes = DB::select('select dislikes, id from comments where post = ?', [$id]);
+        return $this->dislikes;
+    }
+    public function getVisitors($comment){
+        $this->visitors = (object) [];
+        $records_like = [];
+        $records_dislike = [];
+        $this->like = DB::select('select comment, visitor from voters where comment = :id and vote = :vote ', ['id'=>$comment, 'vote' => 'like']);
+        foreach ($this->like as $key => $value) {
+            array_push($records_like, $value->visitor);
+        }
+        $this->dislike = DB::select('select comment, visitor from voters where comment = :id and vote = :vote ', ['id'=>$comment, 'vote' => 'dislike']);
+        foreach ($this->dislike as $key => $value) {
+            array_push($records_dislike, $value->visitor);
+        }
+        $this->visitors->likes = $records_like;
+        $this->visitors->dislikes = $records_dislike;
+        // $this->dislike = DB::select('select count(visitor) from voters where visitor=:visitor and vote="dislike" and post=:post', ['visitor'=>$visitor, 'post'=>$post]);
+        return $this->visitors;
+    }
 }
+
+
