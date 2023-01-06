@@ -10,7 +10,7 @@ import disLikeFill from './images/dislike-fill.png';
 import 'axios';
 import { DiscussionEmbed } from 'disqus-react';
 import axios from "axios";
-import { HandThumbsDown, HandThumbsDownFill, HandThumbsUp, HandThumbsUpFill } from "react-bootstrap-icons";
+import { HandThumbsDown, HandThumbsDownFill, HandThumbsUp, HandThumbsUpFill, Bell } from "react-bootstrap-icons";
 import FingerprintJS from '@fingerprintjs/fingerprintjs-pro'
 
 
@@ -53,14 +53,14 @@ const Post = () => {
                 setViews(response.data['views'])
                 setPostID(response.data['post'][0]['id'])
                 axios.get(`http://127.0.0.1:8000/api/comments/${response.data['post'][0]['id']}`)
-                
-                .then(function (response) {
-                    // handle success
-                    setLikes(response.data['likes'])
-                    setVisitors(response.data['visitors']);
-                    setDisLikes(response.data['dislikes'])
-                    setisLoaded(true)
-                    setComments(response.data['comments'])
+
+                    .then(function (response) {
+                        // handle success
+                        setLikes(response.data['likes'])
+                        setVisitors(response.data['visitors']);
+                        setDisLikes(response.data['dislikes'])
+                        setisLoaded(true)
+                        setComments(response.data['comments'])
                     })
                     .catch(function (error) {
                         // handle error
@@ -77,11 +77,18 @@ const Post = () => {
     }, []);
 
     const addComment = (e) => {
+        console.log('TEST TEST')
         const id = e.target.getAttribute('data-id');
         axios.post(`http://127.0.0.1:8000/api/comments`, {
             id: id,
             content: comment,
             nickname: nick
+        })
+        axios.post('http://127.0.0.1:8000/notification', {
+            link: `/posts/${item.title.replace(' ', '-')}`,
+            content: `${nick} added comment to your post`,
+            title: item.title,
+            type: 'commentAdded'
         })
 
     }
@@ -90,7 +97,7 @@ const Post = () => {
         setComment(e.target.value)
     }
     const onChangeNick = (e) => {
-        setNick(e.target.value) 
+        setNick(e.target.value)
     }
     // console.log(visitors);
     const onClickLike = (e) => {
@@ -99,13 +106,13 @@ const Post = () => {
         let click = e.target.getAttribute('data-click')
         let comm = e.target.getAttribute('data-id')
         counter++
-        if(click == 'true'){
+        if (click == 'true') {
             e.target.setAttribute('data-click', 'false')
             let index = visitors[comm]['likes'].indexOf(visitor)
             visitors[comm]['likes'].splice(index, 1)
             likedArr.push(ind)
         }
-        if(likedArr.includes(ind)){
+        if (likedArr.includes(ind)) {
             // console.log(e.target.getAttribute('data-id'))
             let index = likedArr.indexOf(ind)
             likedArr.splice(index, 1)
@@ -115,11 +122,11 @@ const Post = () => {
                 type: 'like',
                 likes: likes,
                 voter: visitor,
-                info: 'delete', 
+                info: 'delete',
                 commID: likes[ind]['id']
 
             })
-        }else{
+        } else {
             // console.log(e.target.getAttribute('data-id'))
             likedArr.push(ind)
             likes[ind].likes++;
@@ -138,7 +145,7 @@ const Post = () => {
 
 
         setCounter(counter)
-       
+
 
     }
     const onClickDisLike = (e) => {
@@ -147,13 +154,13 @@ const Post = () => {
         let click = e.target.getAttribute('data-click')
         let comm = e.target.getAttribute('data-id')
         counter++
-        if(click == 'true'){
+        if (click == 'true') {
             e.target.setAttribute('data-click', 'false')
-            let index = visitors[comm].indexOf(visitor)
-            visitors[comm].splice(index, 1)
+            let index = visitors[comm]['dislikes'].indexOf(visitor)
+            visitors[comm]['dislikes'].splice(index, 1)
             dislikedArr.push(ind)
         }
-        if(dislikedArr.includes(ind)){
+        if (dislikedArr.includes(ind)) {
             // console.log(e.target.getAttribute('data-id'))
             let index = dislikedArr.indexOf(ind)
             dislikedArr.splice(index, 1)
@@ -163,11 +170,11 @@ const Post = () => {
                 type: 'dislike',
                 dislikes: dislikes,
                 voter: visitor,
-                info: 'delete', 
+                info: 'delete',
                 commID: dislikes[ind]['id']
 
             })
-        }else{
+        } else {
             // console.log(e.target.getAttribute('data-id'))
             dislikedArr.push(ind)
             dislikes[ind].dislikes++;
@@ -187,7 +194,7 @@ const Post = () => {
 
 
         setCounter(counter)
-       
+
 
     }
 
@@ -287,38 +294,38 @@ const Post = () => {
                                     <div className="mt-3">
                                         <button type="button" className="btn btn-outline-light float-end" onClick={addComment} data-id={item.id}>Send</button>
                                     </div>
-                                    {comments.map(( (comment, index) => (
+                                    {comments.map(((comment, index) => (
                                         <div key={comment.id}>
                                             <div className="card-body">
                                                 <h5 className="card-title">{comment.nickname}</h5>
                                                 <p className="card-text">{comment.content} </p>
                                                 {(() => {
                                                     if (visitors[comment.id]['likes'].includes(visitor) || liked.includes(index.toString())) {
-                                                        return(
-                                                            <a><img className="like" src={likeFill}  onClick={onClickLike} data-id={comment.id} data-ind={index} data-click={visitors[comment.id]['likes'].includes(visitor)}/><span className="like-text">{likes[index]['likes']}</span></a>
-                                                            )
-                                                            
-                                                        } else {
-                                                            return(
-                                                                <a><img className="like" src={like}  onClick={onClickLike}  data-id={comment.id} data-ind={index}/><span className="like-text">{likes[index]['likes']}</span></a>
+                                                        return (
+                                                            <a><img className="like" src={likeFill} onClick={onClickLike} data-id={comment.id} data-ind={index} data-click={visitors[comment.id]['likes'].includes(visitor)} /><span className="like-text">{likes[index]['likes']}</span></a>
+                                                        )
+
+                                                    } else {
+                                                        return (
+                                                            <a><img className="like" src={like} onClick={onClickLike} data-id={comment.id} data-ind={index} /><span className="like-text">{likes[index]['likes']}</span></a>
                                                         )
                                                     }
 
                                                 })()}
                                                 {(() => {
                                                     if (visitors[comment.id]['dislikes'].includes(visitor) || disliked.includes(index.toString())) {
-                                                        return(
-                                                            <a><img className="dislike" src={disLikeFill}  onClick={onClickDisLike} data-id={comment.id} data-ind={index} data-click={visitors[comment.id]['dislikes'].includes(visitor)}/> <span className="dislike-text">{dislikes[index]['dislikes']}</span></a>
-                                                            )
-                                                            
-                                                        } else {
-                                                            return(
-                                                            <a> <img className="dislike" src={dislike}  onClick={onClickDisLike} data-id={comment.id} data-ind={index}/> <span className="dislike-text">{dislikes[index]['dislikes']}</span></a>
+                                                        return (
+                                                            <a><img className="dislike" src={disLikeFill} onClick={onClickDisLike} data-id={comment.id} data-ind={index} data-click={visitors[comment.id]['dislikes'].includes(visitor)} /> <span className="dislike-text">{dislikes[index]['dislikes']}</span></a>
+                                                        )
+
+                                                    } else {
+                                                        return (
+                                                            <a> <img className="dislike" src={dislike} onClick={onClickDisLike} data-id={comment.id} data-ind={index} /> <span className="dislike-text">{dislikes[index]['dislikes']}</span></a>
                                                         )
                                                     }
 
                                                 })()}
-                                                
+
                                             </div>
                                             <div className="card-footer text-muted">
                                                 {counter} days ago

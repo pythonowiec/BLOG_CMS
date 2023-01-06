@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\NotifyController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +53,15 @@ Route::group(['prefix' => 'admin_panel'], function () {
 //         return view('editor');
 //     });
 // });
+
+Route::get('test/{name}', function ($name) {
+    event(new App\Events\CommentAdded($name));
+    return "Event has been sent!";
+});
+
+Route::get('notifications', [NotifyController::class, 'index']);
+Route::post('notification', [NotifyController::class, 'send']);
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

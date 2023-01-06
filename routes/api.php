@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,5 @@ Route::resource('comments', CommentController::class);
 Route::post('likes', [CommentController::class, 'addLike']);
 Route::post('dislikes', [CommentController::class, 'addDislike']);
 Route::get('vis/{comment}', [CommentController::class, 'getVisitors']);
+// Route::get('notifications/{type}', [NotificationController::class, 'index']);
+// Route::post('notification', [ProductController::class, 'send']);

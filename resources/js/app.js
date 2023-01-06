@@ -23,26 +23,35 @@ import EditPost from './components/admin/EditPost';
 import AdminPosts from './components/admin/Posts';
 import Profile from './components/Profile';
 import { Route, BrowserRouter, Routes, useNavigate } from 'react-router-dom';
-import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
+import { Auth0Provider, withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import Navigation from './components/Navigation'; 
+import Notifications from './components/Notifications'; 
 
 
 const ProtectedRoute = ({ component, ...args }) => {
     const Component = withAuthenticationRequired(component, args);
     return <Component />;
-  };
+};
+const Notify = () =>{
+    const { isAuthenticated } = useAuth0()
+    return (isAuthenticated ? (
+        <Notifications/>
+      ): ('') )
+
+    
+}
   
-  const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
+const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
     const navigate = useNavigate();
     const onRedirectCallback = (appState) => {
-      navigate((appState && appState.returnTo) || window.location.pathname);
+        navigate((appState && appState.returnTo) || window.location.pathname);
     };
     return (
-      <Auth0Provider onRedirectCallback={onRedirectCallback} {...props}>
+        <Auth0Provider onRedirectCallback={onRedirectCallback} {...props}>
         {children}
-      </Auth0Provider>
+        </Auth0Provider>
     );
-  };
+};
 
 ReactDOM.render(
     <BrowserRouter>
@@ -52,6 +61,7 @@ ReactDOM.render(
               redirectUri={window.location.origin}
               >
                   <Navigation/>
+                  <Notify/>
                   <Routes>
                       <Route path="/" element={<Posts />} />
                       <Route path="posts/:id" element={<Post/>} />
