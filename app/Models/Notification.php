@@ -9,5 +9,5 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Notification extends Model
 {
     use HasFactory, Notifiable;
-    protected $fillable = ['content', 'type', 'link'];
+    protected $fillable = ['content', 'type', 'link', 'viewed'];
 }

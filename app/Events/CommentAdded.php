@@ -16,16 +16,19 @@ class CommentAdded implements ShouldBroadcast
     public $message;
     
     public $link;
+    
+    public $id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($username, $link)
+    public function __construct($username, $link, $id)
     {
         $this->username = $username;
-        $this->message  = "{$username} add comment";
+        $this->id = $id;
+        $this->message  = "{$username}";
         $this->link  = "{$link}";
     }
 

@@ -41,25 +41,25 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-            // $validation = Validator::make($request->all(), [ 
-            //     'content' => 'required|',
-            //     'nickname' => 'required|max:255|required|',
-            // ]);
-            // if($validation->fails()){
-            //     return response()->json(['message' => $validation->messages()], 500);
+            $validation = Validator::make($request->all(), [ 
+                'content' => 'required|',
+                'nickname' => 'required|max:255|required|',
+            ]);
+            if($validation->fails()){
+                return response()->json(['message' => $validation->messages()], 500);
             
 
-            // }else{
-            //     $comment = new Comment;
-            //     $comment->content = $request->content;
-            //     $comment->nickname = $request->nickname;
-            //     $comment->likes = 0;
-            //     $comment->dislikes = 0;
-            //     $comment->post = $request->id;
-            //     $comment->save();
-            //     return response()->json(200);
+            }else{
+                $comment = new Comment;
+                $comment->content = $request->content;
+                $comment->nickname = $request->nickname;
+                $comment->likes = 0;
+                $comment->dislikes = 0;
+                $comment->post = $request->id;
+                $comment->save();
+                return response()->json(200);
 
-            // }
+            }
 
 
     }

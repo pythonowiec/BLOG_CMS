@@ -235,7 +235,7 @@ a:hover {
 
 img,
 svg {
-  vertical-align: bottom;
+  vertical-align: -webkit-baseline-middle;
 }
 
 .dropdown-notifications[data-bs-popper] {
@@ -243,8 +243,20 @@ svg {
   left: auto;
 }
 
+.dropdown-notifications {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
 .notification-icon {
-  color: #6c757d !important;
+  color: #bdc6cf !important;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.badge-notification {
+  --bs-badge-padding-x: 0.5em;
+  --bs-badge-padding-y: 0.25em;
 }
 
 @-webkit-keyframes spinner {

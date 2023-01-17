@@ -29,6 +29,13 @@ function Notifications() {
             pusher.unsubscribe('comment-added');
         };
     }, [notifications]);
+    const handleCloseNotifyClick = (e) => {
+        const id = e.target.getAttribute('data-id')
+        axios.post('http://127.0.0.1:8000/viewed', {
+            id: id
+        })
+        console.log(id);
+    }
     console.log('Notifications: ', notifications);
     return (
         <div aria-live="polite" aria-atomic="true" className="fixed-top">
@@ -38,7 +45,7 @@ function Notifications() {
                         <div className="toast-header">
                             <Bell className="notification-icon rounded me-2" />
                             <strong className="me-auto">Bootstrap</strong>
-                            <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            <button type="button" onClick={handleCloseNotifyClick} data-id={notification.id} className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                         <div className="toast-body">
                             <a href={`http://127.0.0.1:8000/posts/${notification.link}`}>{notification.message}</a>

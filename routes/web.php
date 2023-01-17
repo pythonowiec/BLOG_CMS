@@ -61,6 +61,8 @@ Route::get('test/{name}', function ($name) {
 
 Route::get('notifications', [NotifyController::class, 'index']);
 Route::post('notification', [NotifyController::class, 'send']);
+Route::post('viewed', [NotifyController::class, 'markAsViewed']);
+Route::get('notviewed', [NotifyController::class, 'getNotViewed']);
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
