@@ -34,9 +34,9 @@ function Notifications() {
         axios.post('http://127.0.0.1:8000/viewed', {
             id: id
         })
-        console.log(id);
+        
     }
-    console.log('Notifications: ', notifications);
+    
     return (
         <div aria-live="polite" aria-atomic="true" className="fixed-top">
             <div className="toast-container top-0 end-0">

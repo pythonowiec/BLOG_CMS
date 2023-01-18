@@ -57,7 +57,7 @@ class CommentController extends Controller
                 $comment->dislikes = 0;
                 $comment->post = $request->id;
                 $comment->save();
-                return response()->json(200);
+                return response()->json($comment);
 
             }
 
@@ -201,7 +201,6 @@ class CommentController extends Controller
         }
         $this->visitors->likes = $records_like;
         $this->visitors->dislikes = $records_dislike;
-        // $this->dislike = DB::select('select count(visitor) from voters where visitor=:visitor and vote="dislike" and post=:post', ['visitor'=>$visitor, 'post'=>$post]);
         return $this->visitors;
     }
 }

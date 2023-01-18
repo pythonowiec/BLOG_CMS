@@ -12,6 +12,7 @@ import { DiscussionEmbed } from 'disqus-react';
 import axios from "axios";
 import { HandThumbsDown, HandThumbsDownFill, HandThumbsUp, HandThumbsUpFill, Bell } from "react-bootstrap-icons";
 import FingerprintJS from '@fingerprintjs/fingerprintjs-pro'
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 
 
@@ -30,7 +31,7 @@ const Post = () => {
     let [disliked, setDisLiked] = useState([]);
     let [likes, setLikes] = useState(1);
     let [dislikes, setDisLikes] = useState(null);
-    let [counter, setCounter] = useState(1);
+    let [addedComment, setAddedComment] = useState(false);
 
     // Initialize an agent at application startup.
     const fpPromise = FingerprintJS.load({
@@ -61,6 +62,7 @@ const Post = () => {
                         setDisLikes(response.data['dislikes'])
                         setisLoaded(true)
                         setComments(response.data['comments'])
+                        
                     })
                     .catch(function (error) {
                         // handle error
@@ -74,15 +76,39 @@ const Post = () => {
                 setisLoaded(true)
             })
 
-    }, []);
+    }, [addedComment]);
 
     const addComment = (e) => {
-        console.log('TEST TEST')
+        
         const id = e.target.getAttribute('data-id');
         axios.post(`http://127.0.0.1:8000/api/comments`, {
             id: id,
             content: comment,
             nickname: nick
+        })
+        .then(function (response) {
+            setAddedComment(true)
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Your comment has been added',
+                showConfirmButton: false,
+                timer: 2000,
+                allowOutsideClick: false
+            })
+        })
+        .catch(function (response){
+            const err = Object.values(response.response.data.message)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                html:
+                    `${err.map(function(el){
+                        return `<li className='text-danger'>${el}</li>`
+    
+                    })}`
+              })
         })
         axios.post('http://127.0.0.1:8000/notification', {
             link: `/posts/${item.title.replace(' ', '-')}`,
@@ -90,7 +116,9 @@ const Post = () => {
             title: item.title,
             type: 'commentAdded'
         })
-
+        
+        
+        
     }
 
     const onChangeComment = (e) => {
@@ -99,13 +127,11 @@ const Post = () => {
     const onChangeNick = (e) => {
         setNick(e.target.value)
     }
-    // console.log(visitors);
     const onClickLike = (e) => {
         let likedArr = liked
         let ind = e.target.getAttribute('data-ind')
         let click = e.target.getAttribute('data-click')
         let comm = e.target.getAttribute('data-id')
-        counter++
         if (click == 'true') {
             e.target.setAttribute('data-click', 'false')
             let index = visitors[comm]['likes'].indexOf(visitor)
@@ -113,7 +139,6 @@ const Post = () => {
             likedArr.push(ind)
         }
         if (likedArr.includes(ind)) {
-            // console.log(e.target.getAttribute('data-id'))
             let index = likedArr.indexOf(ind)
             likedArr.splice(index, 1)
             likes[ind].likes--
@@ -127,7 +152,6 @@ const Post = () => {
 
             })
         } else {
-            // console.log(e.target.getAttribute('data-id'))
             likedArr.push(ind)
             likes[ind].likes++;
             axios.post('http://127.0.0.1:8000/api/likes', {
@@ -144,16 +168,12 @@ const Post = () => {
         setLiked(likedArr)
 
 
-        setCounter(counter)
-
-
     }
     const onClickDisLike = (e) => {
         let dislikedArr = disliked
         let ind = e.target.getAttribute('data-ind')
         let click = e.target.getAttribute('data-click')
         let comm = e.target.getAttribute('data-id')
-        counter++
         if (click == 'true') {
             e.target.setAttribute('data-click', 'false')
             let index = visitors[comm]['dislikes'].indexOf(visitor)
@@ -161,7 +181,6 @@ const Post = () => {
             dislikedArr.push(ind)
         }
         if (dislikedArr.includes(ind)) {
-            // console.log(e.target.getAttribute('data-id'))
             let index = dislikedArr.indexOf(ind)
             dislikedArr.splice(index, 1)
             dislikes[ind].dislikes--
@@ -175,7 +194,6 @@ const Post = () => {
 
             })
         } else {
-            // console.log(e.target.getAttribute('data-id'))
             dislikedArr.push(ind)
             dislikes[ind].dislikes++;
             axios.post('http://127.0.0.1:8000/api/dislikes', {
@@ -188,13 +206,7 @@ const Post = () => {
 
             })
         }
-        console.log(disliked)
-        console.log(liked)
         setDisLiked(dislikedArr)
-
-
-        setCounter(counter)
-
 
     }
 
@@ -228,30 +240,6 @@ const Post = () => {
                         __html: item.content
                     }}></p>
                 </div>
-                {/* <div className="row">
-                    {/* <DiscussionEmbed
-                        shortname='carblog'
-                        config={
-                            {
-                                url: `https://carblog-1.disqus.com/${id}`,
-                                identifier: `${id}`,
-                                title: item.title,
-                                language: 'pl_Pl' 
-                            }
-                        }
-                    
-                    <div className="form-floating">
-                        <input className="form-control comment-nick" placeholder="Leave a nick here" id="floatingTextarea" onChange={OnChangeNick} />
-                        <label htmlFor="floatingTextarea" className="comment-label">Put your nick</label>
-                    </div>
-                    <div className="form-floating mt-3">
-                        <textarea className="form-control comment-content" placeholder="Leave a comment here" id="floatingTextarea" onChange={OnChangeComment}></textarea>
-                        <label htmlFor="floatingTextarea" className="comment-label">Put your comment</label>
-                    </div>
-                    <div className="mt-3">
-                        <button type="button" className="btn btn-outline-light float-end" onClick={addComment} data-id={item.id}>Send</button>
-                    </div>
-                </div> */}
                 <div className="row">
                     {(() => {
                         if (typeof (comments) == 'undefined') {
@@ -328,7 +316,7 @@ const Post = () => {
 
                                             </div>
                                             <div className="card-footer text-muted">
-                                                {counter} days ago
+                                                {comment.created_at}
                                             </div>
                                         </div>
                                     )))}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Editor } from '@tinymce/tinymce-react';
 import 'axios';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { useAuth0 } from '@auth0/auth0-react';
 
 
@@ -26,7 +26,7 @@ function AddPost () {
     }
 
     const onClick = () =>{
-        console.log(image);
+        
         const fd = new FormData()
         if(image){
             fd.append('image', image, image.name)

@@ -2,7 +2,7 @@ import axios from "axios";
 import { divide } from "lodash";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";  
+import Swal from 'sweetalert2/dist/sweetalert2.js';  
 
 
 class Posts extends Component {
@@ -29,7 +29,7 @@ class Posts extends Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result)
+                    
                     this.setState({
                         isLoaded: true,
                         items: result
@@ -47,7 +47,7 @@ class Posts extends Component {
         const index = e.target.getAttribute("data-index")
         const items = this.state.items
         items.splice(index, 1)
-        console.log(items)
+        
         this.setState({
             items: items
         })
@@ -64,7 +64,7 @@ class Posts extends Component {
             
             })
             .catch(function (response) {
-                console.log(response);
+                
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -86,7 +86,7 @@ class Posts extends Component {
     render() {
         const { error, isLoaded, items, post } = this.state;
         let info;
-        console.log(items.length)
+        
         if(items.length === 0){
             info = <div className="text-white text-center">You dont't have any posts</div>
         }
@@ -105,8 +105,6 @@ class Posts extends Component {
                         </div>
                     </div>
                     <div className='row mt-3'>
-                        {/* <div className='col-1'></div>
-                        <div className='col-10'> */}
                             <table className="table table-hover table-dark">
                                 <thead>
                                     <tr>
@@ -130,8 +128,7 @@ class Posts extends Component {
                                 </tbody>
                             </table>
                             {info}
-                        {/* </div>
-                        <div className='col-1'></div> */}
+
                     </div>
                 </div>
 

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Editor } from '@tinymce/tinymce-react';
 import 'axios';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 const EditPost = () =>{
     const [error, setError] = useState(null);
@@ -18,7 +18,7 @@ const EditPost = () =>{
                 setisLoaded(true)
                 setItem(response.data[0])
                 setPost(response.data[0])
-                console.log(response.data[0])
+                
             })
             .catch(function (error) {
                 // handle error

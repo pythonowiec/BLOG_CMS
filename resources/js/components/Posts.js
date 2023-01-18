@@ -53,7 +53,7 @@ class Posts extends Component {
     render() {
         const { error, isLoaded, post, items, header } = this.state;
         let info;
-        console.log(header, items)
+        
         if (items.length === 0 && header.length === 0) {
             info = <div className="text-white text-center">I dont't published any posts. See You later.</div>
         }
