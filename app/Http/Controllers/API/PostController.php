@@ -98,8 +98,6 @@ class PostController extends Controller
                 'views' => $views
             ]);
         }
-        
-        // dd($post[0]);
         return response()->json([
             'post' => $post,
             'views' => $views
@@ -115,7 +113,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = DB::select('select * from posts where id = ?', [$id]);
+        return response()->json($post, 200);
     }
 
     /**
@@ -127,26 +126,26 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $id_img = $request->id_img;
         if($request->file('image')){
             $img = $request->file('image');
             $file = $img->storeOnCloudinary();
             $id_img = $file->getPublicId();
-        }
-        // $post = Post::find($id);
-        // $post->title = $request->title;
-        // $post->content = $request->content;
-        // $post->image = $request->image;
-        // $post->save();
 
-        $post = DB::table('posts')
-                ->where('id', $id)
-                ->update([
-                        'title' => $request->title,
-                        'content' => $request->content,
-                        'image' => $id_img
-        ]);
+        }
+        $post = Post::find($id);
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->image = $id_img;
+        $post->save();
+
+        // $post = DB::table('posts')
+        //         ->where('id', $id)
+        //         ->update([
+        //                 'title' => $request->title,
+        //                 'content' => $request->content,
+        //                 'image' => $id_img
+        // ]);
         return response()->json($post, 200);
     }
 

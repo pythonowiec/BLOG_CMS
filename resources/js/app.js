@@ -56,9 +56,10 @@ const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
 ReactDOM.render(
     <BrowserRouter>
           <Auth0ProviderWithRedirectCallback
-              domain="dev-etodg7ym.us.auth0.com"
-              clientId="z68Zh2GnO6xJDX86iPGy4Iy1yToDIDIV"
-              redirectUri={window.location.origin}
+                domain="dev-etodg7ym.us.auth0.com"
+                clientId="z68Zh2GnO6xJDX86iPGy4Iy1yToDIDIV"
+                redirectUri={window.location.origin}
+                audience="http://127.0.0.1:8000/api/posts"
               >
                   <Navigation/>
                   <Notify/>

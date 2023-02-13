@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 
 function AddPost () {
-    const {user} = useAuth0();
+    const {user, getAccessTokenSilently} = useAuth0();
     const [content, setContent] = useState([]);
     const [title, setTitle] = useState('');
     const [image, setImage] = useState(null);
@@ -25,8 +25,8 @@ function AddPost () {
         setImage(file)
     }
 
-    const onClick = () =>{
-        
+    const onClick = async () =>{
+        const token = await getAccessTokenSilently();
         const fd = new FormData()
         if(image){
             fd.append('image', image, image.name)
@@ -36,7 +36,13 @@ function AddPost () {
         fd.append('title', title)
         fd.append('content', content)
         fd.append('name', user.name)
-        axios.post('http://127.0.0.1:8000/api/posts', fd)
+        const instance = axios.create({
+            baseURL: 'http://127.0.0.1:8000/api/',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        instance.post('http://127.0.0.1:8000/api/posts', fd)
             .then(function (response) {
                 Swal.fire({
                     position: 'center',

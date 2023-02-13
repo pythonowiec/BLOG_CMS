@@ -67,6 +67,20 @@ Route::get('notviewed', [NotifyController::class, 'getNotViewed']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/api/private', function () {
+    return response()->json([
+        'message' => 'Hello from a private endpoint! You need to be authenticated to see this.',
+        'authorized' => Auth::check(),
+        'user' => Auth::check() ? json_decode(json_encode((array) Auth::user(), JSON_THROW_ON_ERROR), true) : null,
+    ], 200, [], JSON_PRETTY_PRINT);
+})->middleware(['auth0.authorize']);
 
+    Route::get('/api/private-scoped', function () {
+        return response()->json([
+            'message' => 'Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.',
+            'authorized' => Auth::check(),
+            'user' => Auth::check() ? json_decode(json_encode((array) Auth::user(), JSON_THROW_ON_ERROR), true) : null,
+        ], 200, [], JSON_PRETTY_PRINT);
+    })->middleware(['auth0.authorize:read:messages']);
 
 

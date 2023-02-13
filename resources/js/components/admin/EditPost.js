@@ -1,21 +1,24 @@
-import { divide } from "lodash";
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Editor } from '@tinymce/tinymce-react';
 import 'axios';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const EditPost = () =>{
+    const {getAccessTokenSilently} = useAuth0();
     const [error, setError] = useState(null);
     const [isLoaded, setisLoaded] = useState(false);
+    const [isSaved, setIsSeved] = useState(false);
     const [item, setItem] = useState([]);
     const [post, setPost] = useState([]);
     let { id } = useParams();
     useEffect(() => {
-        axios.get(`http://127.0.0.1:8000/api/posts/${id}`)
+        axios.get(`http://127.0.0.1:8000/api/posts/${id}/edit`)
             .then(function (response) {
                 // handle success
                 setisLoaded(true)
+                console.log(response.data.post);
                 setItem(response.data[0])
                 setPost(response.data[0])
                 
@@ -49,7 +52,8 @@ const EditPost = () =>{
             'image': e.target.files[0]
         })
     }
-    const onClickHandle = () =>{
+    const onClickHandle = async () =>{
+        const token = await getAccessTokenSilently();
         const fd = new FormData()
         fd.append("_method", "put");
         fd.append('extension', item.image.type)
@@ -61,7 +65,13 @@ const EditPost = () =>{
             fd.append('image', item.image, item.image.name)
 
         }
-        axios.post(`http://127.0.0.1:8000/api/posts/${id}`, fd)
+        const instance = axios.create({
+            baseURL: 'http://127.0.0.1:8000/api/',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        instance.post(`/posts/${id}`, fd)
             .then(function (response) {
                 Swal.fire({
                     position: 'center',
@@ -85,7 +95,7 @@ const EditPost = () =>{
                 showConfirmButton: false,
                 didOpen: () => {
                     Swal.showLoading()
-                    if(this.state.isLoaded == true){
+                    if(isSaved == true){
                         Swal.close()
                     }
                 }
