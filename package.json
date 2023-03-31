@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@auth0/auth0-react": "^1.10.2",
+        "@auth0/auth0-spa-js": "^2.0.4",
         "@babel/core": "^7.17.5",
         "@babel/preset-env": "^7.16.11",
         "@ckeditor/ckeditor5-build-classic": "^32.0.0",

@@ -28,7 +28,7 @@ a:hover {
 
 .header-image,
 .header-image-s {
-    opacity: 0.85;
+    opacity: 1;
 }
 
 .header-image {
@@ -45,7 +45,7 @@ a:hover {
 
 .header-image:hover,
 .header-image-s:hover {
-    opacity: 1;
+    opacity: .85;
 }
 
 .title-head {
@@ -58,7 +58,7 @@ a:hover {
 }
 
 .title-head-s {
-    background-color: #505050;
+    background-color: #545454;
     position: absolute;
     font-weight: bold;
     color: white;
@@ -73,7 +73,7 @@ a:hover {
 }
 
 .published-head-s {
-    background-color: #505050;
+    background-color: #676767;
     color: white;
     position: absolute;
     text-align: center;
@@ -86,9 +86,10 @@ a:hover {
     background-color: #505050;
     color: white;
     position: relative;
+    padding: 0;
 }
 
-.post:hover {
+.post-img:hover {
     opacity: 0.85;
 }
 
@@ -158,6 +159,9 @@ a:hover {
     background-color: #434649;
     box-shadow: none;
 }
+.fb{
+    vertical-align: baseline;
+}
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -211,26 +215,32 @@ a:hover {
     color: white !important;
     background-color: #313438 !important;
 }
+.like-btn{
+    margin-right: 10px;
+}
 
 .like {
     height: 24px;
     width: 24px;
     vertical-align: baseline;
     margin-right: 5px;
+    vertical-align: top;
 }
 
 .dislike {
     vertical-align: sub;
     margin-right: 5px;
     margin-left: 10px;
+    vertical-align: top;
 }
 
 .like-text {
-    font-size: 24px;
+    font-size: 20px;
+    color: white;
 }
 
 .dislike-text {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 img,

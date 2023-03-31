@@ -101,7 +101,7 @@ function Navigation() {
                                 </a>
 
                                 <div className="dropdown-menu dropdown-menu-dark dropdown-notifications">
-                                    <div className="dropdown-toolbar">
+                                    <ul className="dropdown-toolbar">
                                         <div className="dropdown-toolbar-actions">
                                             <a onClick={handleMarkClick} href="#">Mark all as read</a>
                                         </div>
@@ -114,7 +114,7 @@ function Navigation() {
                                         ))}
 
 
-                                    </div>
+                                    </ul>
                                 </div>
                             </li>
 
@@ -127,7 +127,7 @@ function Navigation() {
                                     <Link className="dropdown-item" to={'/admin_panel/add'}>Add post</Link>
                                     <Link className="dropdown-item" to={'/admin_panel/posts'}>All posts</Link>
                                     <a className="dropdown-item">
-                                        <button className='btn-secondary' onClick={() => logout({ returnTo: window.location.origin })}>
+                                        <button className='btn btn-outline-light' onClick={() => logout({ returnTo: window.location.origin })}>
                                             Log out
                                         </button>
                                     </a>

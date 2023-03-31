@@ -112,34 +112,23 @@ class Posts extends Component {
                         <div className='col-1'></div>
                         <div className='col-10'>
                             {items.map(item => (
-                                <div className='post' key={item.id} onMouseEnter={() => { this.setState({ post: { display: 'block', id: item.id } }) }} onMouseLeave={() => { this.setState({ post: { display: 'none', id: item.id } }) }}>
+                                <div className='post' key={item.id}>
                                     {(() => {
                                         if (item.image != 'test') {
                                             return (
-                                                <img className='img-fluid' src={`https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/${item.image}.jpg`} alt="" />
+                                                <Link to={`/posts/${item.title.replace(' ', '-')}`}><img className='img-fluid post-img' src={`https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/${item.image}.jpg`} alt="" /></Link>
                                             )
                                         } else {
                                             return (
-                                                <img className='img-fluid' src={img2} alt="" />
+                                                <img className='img-fluid post-img' src={img2} alt="" />
                                             )
                                         }
                                     })()}
                                     <div className="row">
-                                        <p className='title col-6'><Link to={`/${item.title.replace(' ', '-')}`}>{item.title}</Link></p>
+                                        <p className='title col-6'><Link to={`/posts/${item.title.replace(' ', '-')}`}>{item.title}</Link></p>
                                         <p className='published col-6'>Posted by {item.name} on {new Date(item.created_at).toLocaleDateString('en-EN', this.state.options)}</p>
                                     </div>
                                     <p className="views">{item.views} views</p>
-                                    {(() => {
-                                        if (post['id'] == item.id) {
-                                            return (
-                                                <Link to={`/posts/${item.title.replace(' ', '-')}`}><button className='showBtn' onClick={() => { this.setState({ id: item.id }) }} id={item.id} style={{ display: `${post['display']}` }}>Show More</button></Link>
-                                            )
-                                        } else {
-                                            return (
-                                                <button className='showBtn' id={item.id} style={{ display: `none` }}>Show More</button>
-                                            )
-                                        }
-                                    })()}
                                 </div>
                             ))}
                             {info}

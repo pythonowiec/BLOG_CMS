@@ -18,7 +18,6 @@ const EditPost = () =>{
             .then(function (response) {
                 // handle success
                 setisLoaded(true)
-                console.log(response.data.post);
                 setItem(response.data[0])
                 setPost(response.data[0])
                 

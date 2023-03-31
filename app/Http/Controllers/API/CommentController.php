@@ -43,7 +43,7 @@ class CommentController extends Controller
     {
             $validation = Validator::make($request->all(), [ 
                 'content' => 'required|',
-                'nickname' => 'required|max:255|required|',
+                'nickname' => 'required|max:50|',
             ]);
             if($validation->fails()){
                 return response()->json(['message' => $validation->messages()], 500);
@@ -136,7 +136,7 @@ class CommentController extends Controller
             $voter->save();
 
         }else{
-            DB::table('voters')->where('visitor', $request->voter)->where('post', $request->id)->delete();
+            DB::table('voters')->where('visitor', $request->voter)->where('comment', $request->commID)->where('vote', 'like')->where('visitor', $request->voter)->delete();
 
         }
 
@@ -162,7 +162,7 @@ class CommentController extends Controller
             $voter->save();
 
         }else{
-            DB::table('voters')->where('visitor', $request->voter)->where('post', $request->id)->delete();
+            DB::table('voters')->where('visitor', $request->voter)->where('comment', $request->commID)->where('vote', 'dislike')->where('visitor', $request->voter)->delete();
 
         }
 

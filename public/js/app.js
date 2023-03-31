@@ -7210,7 +7210,7 @@ function Navigation() {
               }()]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
               className: "dropdown-menu dropdown-menu-dark dropdown-notifications",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("ul", {
                 className: "dropdown-toolbar",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                   className: "dropdown-toolbar-actions",
@@ -7266,7 +7266,7 @@ function Navigation() {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
                 className: "dropdown-item",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
-                  className: "btn-secondary",
+                  className: "btn btn-outline-light",
                   onClick: function onClick() {
                     return logout({
                       returnTo: window.location.origin
@@ -7434,6 +7434,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
 /* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7515,7 +7523,7 @@ var Post = function Post() {
       postID = _useState20[0],
       setPostID = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([1]),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState22 = _slicedToArray(_useState21, 2),
       liked = _useState22[0],
       setLiked = _useState22[1];
@@ -7624,7 +7632,8 @@ var Post = function Post() {
   };
 
   var onClickLike = function onClickLike(e) {
-    var likedArr = liked;
+    var likedArr = _toConsumableArray(liked);
+
     var ind = e.target.getAttribute('data-ind');
     var click = e.target.getAttribute('data-click');
     var comm = e.target.getAttribute('data-id');
@@ -7666,7 +7675,8 @@ var Post = function Post() {
   };
 
   var onClickDisLike = function onClickDisLike(e) {
-    var dislikedArr = disliked;
+    var dislikedArr = _toConsumableArray(disliked);
+
     var ind = e.target.getAttribute('data-ind');
     var click = e.target.getAttribute('data-click');
     var comm = e.target.getAttribute('data-id');
@@ -7821,6 +7831,7 @@ var Post = function Post() {
                   className: "form-control comment-nick",
                   placeholder: "Leave a nick here",
                   id: "floatingTextarea",
+                  maxLength: "50",
                   onChange: onChangeNick
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
                   htmlFor: "floatingTextarea",
@@ -7861,6 +7872,7 @@ var Post = function Post() {
                     }), function () {
                       if (visitors[comment.id]['likes'].includes(visitor) || liked.includes(index.toString())) {
                         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
+                          title: "like",
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
                             className: "like",
                             src: _images_like_fill_png__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -7875,6 +7887,7 @@ var Post = function Post() {
                         });
                       } else {
                         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
+                          title: "like",
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
                             className: "like",
                             src: _images_like_png__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -7890,6 +7903,7 @@ var Post = function Post() {
                     }(), function () {
                       if (visitors[comment.id]['dislikes'].includes(visitor) || disliked.includes(index.toString())) {
                         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
+                          title: "dislike",
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
                             className: "dislike",
                             src: _images_dislike_fill_png__WEBPACK_IMPORTED_MODULE_6__["default"],
@@ -7904,6 +7918,7 @@ var Post = function Post() {
                         });
                       } else {
                         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
+                          title: "dislike",
                           children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
                             className: "dislike",
                             src: _images_dislike_png__WEBPACK_IMPORTED_MODULE_5__["default"],
@@ -8149,32 +8164,19 @@ var Posts = /*#__PURE__*/function (_Component) {
               children: [items.map(function (item) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "post",
-                  onMouseEnter: function onMouseEnter() {
-                    _this3.setState({
-                      post: {
-                        display: 'block',
-                        id: item.id
-                      }
-                    });
-                  },
-                  onMouseLeave: function onMouseLeave() {
-                    _this3.setState({
-                      post: {
-                        display: 'none',
-                        id: item.id
-                      }
-                    });
-                  },
                   children: [function () {
                     if (item.image != 'test') {
-                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-                        className: "img-fluid",
-                        src: "https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/".concat(item.image, ".jpg"),
-                        alt: ""
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+                        to: "/posts/".concat(item.title.replace(' ', '-')),
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                          className: "img-fluid post-img",
+                          src: "https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/".concat(item.image, ".jpg"),
+                          alt: ""
+                        })
                       });
                     } else {
                       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-                        className: "img-fluid",
+                        className: "img-fluid post-img",
                         src: _images_im2_jpg__WEBPACK_IMPORTED_MODULE_3__["default"],
                         alt: ""
                       });
@@ -8184,7 +8186,7 @@ var Posts = /*#__PURE__*/function (_Component) {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                       className: "title col-6",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-                        to: "/".concat(item.title.replace(' ', '-')),
+                        to: "/posts/".concat(item.title.replace(' ', '-')),
                         children: item.title
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
@@ -8194,35 +8196,7 @@ var Posts = /*#__PURE__*/function (_Component) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
                     className: "views",
                     children: [item.views, " views"]
-                  }), function () {
-                    if (post['id'] == item.id) {
-                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-                        to: "/posts/".concat(item.title.replace(' ', '-')),
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-                          className: "showBtn",
-                          onClick: function onClick() {
-                            _this3.setState({
-                              id: item.id
-                            });
-                          },
-                          id: item.id,
-                          style: {
-                            display: "".concat(post['display'])
-                          },
-                          children: "Show More"
-                        })
-                      });
-                    } else {
-                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-                        className: "showBtn",
-                        id: item.id,
-                        style: {
-                          display: "none"
-                        },
-                        children: "Show More"
-                      });
-                    }
-                  }()]
+                  })]
                 }, item.id);
               }), info]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -8389,7 +8363,6 @@ var EditPost = function EditPost() {
     axios.get("http://127.0.0.1:8000/api/posts/".concat(id, "/edit")).then(function (response) {
       // handle success
       setisLoaded(true);
-      console.log(response.data.post);
       setItem(response.data[0]);
       setPost(response.data[0]);
     })["catch"](function (error) {

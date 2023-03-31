@@ -27,7 +27,7 @@ const Post = () => {
     const [visitor, setVisitor] = useState(1);
     const [visitors, setVisitors] = useState([]);
     const [postID, setPostID] = useState(null);
-    let [liked, setLiked] = useState([1]);
+    let [liked, setLiked] = useState([]);
     let [disliked, setDisLiked] = useState([]);
     let [likes, setLikes] = useState(1);
     let [dislikes, setDisLikes] = useState(null);
@@ -128,7 +128,7 @@ const Post = () => {
         setNick(e.target.value)
     }
     const onClickLike = (e) => {
-        let likedArr = liked
+        let likedArr = [...liked]
         let ind = e.target.getAttribute('data-ind')
         let click = e.target.getAttribute('data-click')
         let comm = e.target.getAttribute('data-id')
@@ -166,11 +166,9 @@ const Post = () => {
         }
 
         setLiked(likedArr)
-
-
     }
     const onClickDisLike = (e) => {
-        let dislikedArr = disliked
+        let dislikedArr = [...disliked]
         let ind = e.target.getAttribute('data-ind')
         let click = e.target.getAttribute('data-click')
         let comm = e.target.getAttribute('data-id')
@@ -272,7 +270,7 @@ const Post = () => {
                                         <h3>Comments</h3>
                                     </div>
                                     <div className="form-floating mt-3">
-                                        <input className="form-control comment-nick" placeholder="Leave a nick here" id="floatingTextarea" onChange={onChangeNick} />
+                                        <input className="form-control comment-nick" placeholder="Leave a nick here" id="floatingTextarea" maxLength="50" onChange={onChangeNick} />
                                         <label htmlFor="floatingTextarea" className="comment-label">Put your nick</label>
                                     </div>
                                     <div className="form-floating mt-3">
@@ -287,15 +285,16 @@ const Post = () => {
                                             <div className="card-body">
                                                 <h5 className="card-title">{comment.nickname}</h5>
                                                 <p className="card-text">{comment.content} </p>
+                                                
                                                 {(() => {
                                                     if (visitors[comment.id]['likes'].includes(visitor) || liked.includes(index.toString())) {
                                                         return (
-                                                            <a><img className="like" src={likeFill} onClick={onClickLike} data-id={comment.id} data-ind={index} data-click={visitors[comment.id]['likes'].includes(visitor)} /><span className="like-text">{likes[index]['likes']}</span></a>
+                                                            <a title="like"><img className="like" src={likeFill} onClick={onClickLike} data-id={comment.id} data-ind={index} data-click={visitors[comment.id]['likes'].includes(visitor)} /><span className="like-text">{likes[index]['likes']}</span></a>
                                                         )
 
                                                     } else {
                                                         return (
-                                                            <a><img className="like" src={like} onClick={onClickLike} data-id={comment.id} data-ind={index} /><span className="like-text">{likes[index]['likes']}</span></a>
+                                                            <a title="like"><img className="like" src={like} onClick={onClickLike} data-id={comment.id} data-ind={index} /><span className="like-text">{likes[index]['likes']}</span></a>
                                                         )
                                                     }
 
@@ -303,12 +302,12 @@ const Post = () => {
                                                 {(() => {
                                                     if (visitors[comment.id]['dislikes'].includes(visitor) || disliked.includes(index.toString())) {
                                                         return (
-                                                            <a><img className="dislike" src={disLikeFill} onClick={onClickDisLike} data-id={comment.id} data-ind={index} data-click={visitors[comment.id]['dislikes'].includes(visitor)} /> <span className="dislike-text">{dislikes[index]['dislikes']}</span></a>
+                                                            <a title="dislike"><img className="dislike" src={disLikeFill} onClick={onClickDisLike} data-id={comment.id} data-ind={index} data-click={visitors[comment.id]['dislikes'].includes(visitor)} /> <span className="dislike-text">{dislikes[index]['dislikes']}</span></a>
                                                         )
 
                                                     } else {
                                                         return (
-                                                            <a> <img className="dislike" src={dislike} onClick={onClickDisLike} data-id={comment.id} data-ind={index} /> <span className="dislike-text">{dislikes[index]['dislikes']}</span></a>
+                                                            <a title="dislike"> <img className="dislike" src={dislike} onClick={onClickDisLike} data-id={comment.id} data-ind={index} /> <span className="dislike-text">{dislikes[index]['dislikes']}</span></a>
                                                         )
                                                     }
 

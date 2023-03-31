@@ -163,23 +163,4 @@ class PostController extends Controller
         return response()->json(200);
     }
 
-    public function addLike(Request $request)
-    {
-        $voter = new Voter;
-        $voter->post = $request->id;
-        $voter->vote = $request->type;
-        $voter->visitor = $request->voter;
-        $voter->save();
-        foreach ($request->likes as $key => $like) {
-            dd($like);
-            $post = DB::table('comments')
-                    ->where('id', $request->id)
-                    ->update([
-                            'likes' => $request->likes,
-    
-            ]);
-            
-        }
-        return response()->json(200);
-    }
 }
