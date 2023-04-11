@@ -27,6 +27,7 @@ import { Auth0Provider, withAuthenticationRequired, useAuth0 } from '@auth0/auth
 import Navigation from './components/Navigation'; 
 import Notifications from './components/Notifications'; 
 
+console.log(process.env.MIX_AUTH0_DOMAIN);
 
 const ProtectedRoute = ({ component, ...args }) => {
     const Component = withAuthenticationRequired(component, args);
@@ -56,10 +57,10 @@ const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
 ReactDOM.render(
     <BrowserRouter>
           <Auth0ProviderWithRedirectCallback
-                domain="dev-etodg7ym.us.auth0.com"
-                clientId="z68Zh2GnO6xJDX86iPGy4Iy1yToDIDIV"
+                domain={process.env.MIX_AUTH0_DOMAIN}
+                clientId={process.env.MIX_AUTH0_CLIENT_ID}
                 redirectUri={window.location.origin}
-                audience="http://127.0.0.1:8000/api/posts"
+                audience={process.env.MIX_AUTH0_AUDIENCE}
               >
                   <Navigation/>
                   <Notify/>

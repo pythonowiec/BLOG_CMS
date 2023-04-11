@@ -100,7 +100,7 @@ function AddPost () {
                 <div className='col-1'></div>
                 <div className='col-10'>
                     <Editor 
-                        apiKey='0efkeh4p0498bwsf03d5deorgcjtsaopgw0lvebxnucvfpc5'
+                        apiKey={process.env.MIX_EDITOR_API_KEY}
                         init={{
                             selector: 'textarea#file-picker',
                             plugins: 'image code textcolor preview   searchreplace autolink autosave save directionality  table charmap hr   nonbreaking   insertdatetime advlist lists   wordcount    textpattern noneditable    quickbars  emoticons ',

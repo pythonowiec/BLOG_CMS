@@ -32,20 +32,20 @@ const Post = () => {
     let [likes, setLikes] = useState(1);
     let [dislikes, setDisLikes] = useState(null);
     let [addedComment, setAddedComment] = useState(false);
-
+    console.log(visitor);
     // Initialize an agent at application startup.
     const fpPromise = FingerprintJS.load({
-        apiKey: "soKkjQsHUsMetzxHgnMT",
-        region: "eu"
+        apiKey: process.env.MIX_FINGERPRINT_API_KEY,
+        region: process.env.MIX_FINGERPRINT_REGION
     })
-
-    // // Get the visitor identifier when you need it.
-    fpPromise
-        .then(fp => fp.get())
-        .then(result => setVisitor(result.visitorId))
-
+    
+    
     let { id } = useParams();
     useEffect(() => {
+        // // Get the visitor identifier when you need it.
+        fpPromise
+        .then(fp => fp.get())
+        .then(result => setVisitor(result.visitorId))
         axios.get(`http://127.0.0.1:8000/api/posts/${id}`)
             .then(function (response) {
                 // handle success

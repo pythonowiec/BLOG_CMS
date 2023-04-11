@@ -6678,6 +6678,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+console.log("dev-etodg7ym.us.auth0.com");
 
 var ProtectedRoute = function ProtectedRoute(_ref) {
   var component = _ref.component,
@@ -7546,24 +7547,25 @@ var Post = function Post() {
   var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState30 = _slicedToArray(_useState29, 2),
       addedComment = _useState30[0],
-      setAddedComment = _useState30[1]; // Initialize an agent at application startup.
+      setAddedComment = _useState30[1];
 
+  console.log(visitor); // Initialize an agent at application startup.
 
   var fpPromise = _fingerprintjs_fingerprintjs_pro__WEBPACK_IMPORTED_MODULE_11__["default"].load({
     apiKey: "soKkjQsHUsMetzxHgnMT",
     region: "eu"
-  }); // // Get the visitor identifier when you need it.
-
-  fpPromise.then(function (fp) {
-    return fp.get();
-  }).then(function (result) {
-    return setVisitor(result.visitorId);
   });
 
   var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_12__.useParams)(),
       id = _useParams.id;
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    // // Get the visitor identifier when you need it.
+    fpPromise.then(function (fp) {
+      return fp.get();
+    }).then(function (result) {
+      return setVisitor(result.visitorId);
+    });
     axios__WEBPACK_IMPORTED_MODULE_7___default().get("http://127.0.0.1:8000/api/posts/".concat(id)).then(function (response) {
       // handle success
       setItem(response.data['post'][0]);
