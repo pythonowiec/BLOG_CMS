@@ -20,7 +20,6 @@ import Post from './components/Post';
 import AddPost from './components/admin/addPost';
 import EditPost from './components/admin/EditPost';
 import AdminPosts from './components/admin/Posts';
-import Profile from './components/Profile';
 import { Route, BrowserRouter, Routes, useNavigate } from 'react-router-dom';
 import { Auth0Provider, withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import Navigation from './components/Navigation'; 
@@ -69,7 +68,6 @@ ReactDOM.render(
                       <Route path="admin_panel/posts" element={<ProtectedRoute component={AdminPosts} />}/>
                       <Route path="admin_panel/add" element={<ProtectedRoute component={AddPost} />}/>
                       <Route path="admin_panel/edit/:id" element={<ProtectedRoute component={EditPost} />}/>
-                      <Route path="/profile"  element={<ProtectedRoute component={Profile} />}/>
                   </Routes>
           </Auth0ProviderWithRedirectCallback>
       </BrowserRouter>,
