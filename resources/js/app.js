@@ -15,7 +15,6 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Example from './components/Example';
 import Posts from './components/Posts';
 import Post from './components/Post';
 import AddPost from './components/admin/addPost';
@@ -70,7 +69,6 @@ ReactDOM.render(
                       <Route path="admin_panel/posts" element={<ProtectedRoute component={AdminPosts} />}/>
                       <Route path="admin_panel/add" element={<ProtectedRoute component={AddPost} />}/>
                       <Route path="admin_panel/edit/:id" element={<ProtectedRoute component={EditPost} />}/>
-                      <Route path="/example" element={<ProtectedRoute component={Example} />}/>
                       <Route path="/profile"  element={<ProtectedRoute component={Profile} />}/>
                   </Routes>
           </Auth0ProviderWithRedirectCallback>

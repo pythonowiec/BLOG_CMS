@@ -22,9 +22,6 @@ Route::get('/', function () {
 Route::get('posts/{string}', function () {
     return view('show');
 });
-Route::get('example', function () {
-    return view('editor');
-});
 Route::get('profile', function () {
     return view('profile');
 });
@@ -44,8 +41,6 @@ Route::group(['prefix' => 'admin_panel'], function () {
     Route::get('/edit/{string}', function () {
         return view('edit');
     })->name('edit');
-   
-    
 });
 
 Route::get('notifications', [NotifyController::class, 'index']);
