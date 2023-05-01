@@ -80,23 +80,16 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($string)
-    {   
-       
-        if(intval($string)){
-            $post = DB::select('select * from posts where id = ?', [$string]);
-
-        }
-        else if(is_string($string)){
+    {  
+        if (is_numeric($string)) {
+            $post = DB::table('posts')->where('id', $string)->first();
+        } else if (is_string($string)) {
             $title = str_replace('-', ' ', $string);
-            $post = DB::select('select * from posts where title = ?', [$title]);
-            $views = $post[0]->views + 1;
-            $id = $post[0]->id;
-            
-            DB::table('posts')
-            ->where('id', $id)
-            ->update([
-                'views' => $views
-            ]);
+            $post = DB::table('posts')->where('title', $title)->first();
+            if ($post) {
+                $views = $post->views + 1;
+                DB::table('posts')->where('id', $post->id)->update(['views' => $views]);
+            }
         }
         return response()->json([
             'post' => $post,
@@ -105,6 +98,27 @@ class PostController extends Controller
         ], 200);
     }
 
+    public function search($search)
+    {
+        $validator = Validator::make(['search' => $search], [
+            'search' => 'string'
+        ]);
+        
+        if ($validator->fails()) {
+            abort(404);
+        }else {
+            $title = str_replace('-', ' ', $search);
+            $posts = DB::table('posts')
+            ->where('title', 'like', '%'.$search.'%')
+            ->get();
+        }
+
+
+        return response()->json([
+            'posts' => $posts
+
+        ], 200);
+    }
     /**
      * Show the form for editing the specified resource.
      *

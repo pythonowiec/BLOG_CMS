@@ -1,9 +1,6 @@
-import { divide } from "lodash";
 import React, { Component } from "react";
-import ReactDOM from "react";
 import { Link } from "react-router-dom";
-import img from './images/im.jpg';
-import img2 from './images/im2.jpg';
+import Search from "../Search";
 
 class Posts extends Component {
     constructor(props) {
@@ -58,13 +55,16 @@ class Posts extends Component {
             info = <div className="text-white text-center">I dont't published any posts. See You later.</div>
         }
 
-        if (error) {
-            return <div>Błąd: {error.message}</div>;
-        } else if (!isLoaded) {
+        if (!isLoaded) {
             return <div className="loader"></div>;
         } else {
             return (
                 <div className='container mt-5'>
+                    <div className='row mt-3 mb-3'>
+                        <div className='col-1'></div>
+                        <div className='col-10'><Search /></div>
+                        <div className='col-1'></div>
+                    </div>
                     {(() => {
                         if (header.length >= 3) {
                             return (
@@ -118,11 +118,7 @@ class Posts extends Component {
                                             return (
                                                 <Link to={`/posts/${item.title.replace(' ', '-')}`}><img className='img-fluid post-img' src={`https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/${item.image}.jpg`} alt="" /></Link>
                                             )
-                                        } else {
-                                            return (
-                                                <img className='img-fluid post-img' src={img2} alt="" />
-                                            )
-                                        }
+                                        } 
                                     })()}
                                     <div className="row">
                                         <p className='title col-6'><Link to={`/posts/${item.title.replace(' ', '-')}`}>{item.title}</Link></p>

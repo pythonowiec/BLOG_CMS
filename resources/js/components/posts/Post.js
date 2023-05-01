@@ -1,16 +1,11 @@
-import { divide } from "lodash";
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react";
 import { Link, useParams } from "react-router-dom";
-import img2 from './images/im2.jpg';
-import like from './images/like.png';
-import likeFill from './images/like-fill.png';
-import dislike from './images/dislike.png';
-import disLikeFill from './images/dislike-fill.png';
+import like from '../images/like.png';
+import likeFill from '../images/like-fill.png';
+import dislike from '../images/dislike.png';
+import disLikeFill from '../images/dislike-fill.png';
 import 'axios';
-import { DiscussionEmbed } from 'disqus-react';
 import axios from "axios";
-import { HandThumbsDown, HandThumbsDownFill, HandThumbsUp, HandThumbsUpFill, Bell } from "react-bootstrap-icons";
 import FingerprintJS from '@fingerprintjs/fingerprintjs-pro'
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
@@ -18,7 +13,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 const Post = () => {
     const [error, setError] = useState(null);
-    const [isLoaded, setisLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
     const [item, setItem] = useState([]);
     const [comment, setComment] = useState([]);
     const [comments, setComments] = useState([]);
@@ -32,7 +27,6 @@ const Post = () => {
     let [likes, setLikes] = useState(1);
     let [dislikes, setDisLikes] = useState(null);
     let [addedComment, setAddedComment] = useState(false);
-    console.log(visitor);
     // Initialize an agent at application startup.
     const fpPromise = FingerprintJS.load({
         apiKey: process.env.MIX_FINGERPRINT_API_KEY,
@@ -47,33 +41,32 @@ const Post = () => {
         .then(fp => fp.get())
         .then(result => setVisitor(result.visitorId))
         axios.get(`http://127.0.0.1:8000/api/posts/${id}`)
-            .then(function (response) {
-                // handle success
-
-                setItem(response.data['post'][0])
+        .then(function (response) {
+            // handle success
+                setItem(response.data['post'])
                 setViews(response.data['views'])
-                setPostID(response.data['post'][0]['id'])
-                axios.get(`http://127.0.0.1:8000/api/comments/${response.data['post'][0]['id']}`)
+                setPostID(response.data['post']['id'])
+                axios.get(`http://127.0.0.1:8000/api/comments/${response.data['post']['id']}`)
 
                     .then(function (response) {
                         // handle success
                         setLikes(response.data['likes'])
                         setVisitors(response.data['visitors']);
                         setDisLikes(response.data['dislikes'])
-                        setisLoaded(true)
+                        setIsLoaded(true)
                         setComments(response.data['comments'])
                         
                     })
                     .catch(function (error) {
                         // handle error
                         setError(error)
-                        setisLoaded(true)
+                        setIsLoaded(true)
                     })
             })
             .catch(function (error) {
                 // handle error
                 setError(error)
-                setisLoaded(true)
+                setIsLoaded(true)
             })
 
     }, [addedComment]);
@@ -208,9 +201,7 @@ const Post = () => {
 
     }
 
-    if (error) {
-        return <div>Błąd: {error.message}</div>;
-    } else if (!isLoaded) {
+   if (!isLoaded) {
         return <div className="loader"></div>;
     } else {
         return (
@@ -221,10 +212,6 @@ const Post = () => {
                             if (item.image != 'test') {
                                 return (
                                     <img className='img-fluid' src={`https://res.cloudinary.com/dtoiehbpt/image/upload/v1651426819/${item.image}.jpg`} alt="" />
-                                )
-                            } else {
-                                return (
-                                    <img className='img-fluid' src={img2} alt="" />
                                 )
                             }
                         })()}

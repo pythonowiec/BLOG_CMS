@@ -4,7 +4,7 @@
  * building robust, powerful web applications using React + Laravel.
  */
 
- require('./bootstrap');
+ require('./bootstrap')
 
  /**
   * Next, we will create a fresh React component instance and attach it to
@@ -15,22 +15,21 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Posts from './components/Posts';
-import Post from './components/Post';
+import Post from './components/posts/Post';
 import AddPost from './components/admin/addPost';
 import EditPost from './components/admin/EditPost';
 import AdminPosts from './components/admin/Posts';
 import { Route, BrowserRouter, Routes, useNavigate } from 'react-router-dom';
 import { Auth0Provider, withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
-import Navigation from './components/Navigation'; 
-import Notifications from './components/Notifications'; 
-
-console.log(process.env.MIX_AUTH0_DOMAIN);
+import Navigation from './components/Navigation';
+import Notifications from './components/Notifications';
+import Posts from './components/posts/Posts';
+import SearchResult from './components/SearchResult';
 
 const ProtectedRoute = ({ component, ...args }) => {
-    const Component = withAuthenticationRequired(component, args);
-    return <Component />;
-};
+    const Component = withAuthenticationRequired(component, args)
+    return <Component />
+}
 const Notify = () =>{
     const { isAuthenticated } = useAuth0()
     return (isAuthenticated ? (
@@ -41,16 +40,16 @@ const Notify = () =>{
 }
   
 const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const onRedirectCallback = (appState) => {
-        navigate((appState && appState.returnTo) || window.location.pathname);
-    };
+        navigate((appState && appState.returnTo) || window.location.pathname)
+    }
     return (
         <Auth0Provider onRedirectCallback={onRedirectCallback} {...props}>
         {children}
         </Auth0Provider>
-    );
-};
+    )
+}
 
 ReactDOM.render(
     <BrowserRouter>
@@ -64,6 +63,7 @@ ReactDOM.render(
                   <Notify/>
                   <Routes>
                       <Route path="/" element={<Posts />} />
+                      <Route path="search-result/:search" element={<SearchResult/>} />
                       <Route path="posts/:id" element={<Post/>} />
                       <Route path="admin_panel/posts" element={<ProtectedRoute component={AdminPosts} />}/>
                       <Route path="admin_panel/add" element={<ProtectedRoute component={AddPost} />}/>
@@ -72,4 +72,4 @@ ReactDOM.render(
           </Auth0ProviderWithRedirectCallback>
       </BrowserRouter>,
    document.querySelector('#app')
-);
+)

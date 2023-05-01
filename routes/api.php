@@ -31,6 +31,8 @@ Route::delete('posts/{id}', [PostController::class, 'destroy'])->middleware(['au
 
 Route::get('posts/{id}/edit', [PostController::class, 'edit']);
 
+Route::get('posts-search/{search}', [PostController::class, 'search']);
+
 Route::resource('comments', CommentController::class);
 Route::post('likes', [CommentController::class, 'addLike']);
 Route::post('dislikes', [CommentController::class, 'addDislike']);

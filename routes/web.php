@@ -22,6 +22,9 @@ Route::get('/', function () {
 Route::get('posts/{string}', function () {
     return view('show');
 });
+Route::get('search-result/{string}', function () {
+    return view('search');
+});
 
 
 Route::group(['prefix' => 'admin_panel'], function () {
