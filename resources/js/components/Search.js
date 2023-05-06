@@ -9,7 +9,9 @@ const Search = (props) => {
         setSearchValue(event.target.value);
     };
     const handleSubmitClick = () =>{
-        navigate(`/search-result/${searchValue}`);
+        if(searchValue != ''){
+            navigate(`/search-result/${searchValue}`);
+        }
     };
     return (
         <div className="input-group">

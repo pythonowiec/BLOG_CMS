@@ -7181,7 +7181,9 @@ var Search = function Search(props) {
   };
 
   var handleSubmitClick = function handleSubmitClick() {
-    navigate("/search-result/".concat(searchValue));
+    if (searchValue != '') {
+      navigate("/search-result/".concat(searchValue));
+    }
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
