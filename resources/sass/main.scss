@@ -296,6 +296,9 @@ svg {
     margin: 16px 0px;
     text-align: center;
 }
+.delete-btn:hover{
+    cursor: pointer;
+}
 @-webkit-keyframes spinner {
     0% {
         transform: rotate(0deg);

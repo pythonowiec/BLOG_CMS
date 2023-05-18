@@ -113,7 +113,7 @@ const Posts = () => {
                                         <td>{item.title}</td>
                                         <td>{item.image}</td>
                                         <td>{item.views}</td>
-                                        <td><Link to={`../admin_panel/edit/${item.id}`}><i className="fa-regular fa-pen-to-square"></i></Link> <i className="fa-regular fa-trash-can" onClick={handleDelete} data-id={item.id} data-index={index}></i></td>
+                                        <td><Link to={`../admin_panel/edit/${item.id}`}><i className="fa-regular fa-pen-to-square"></i></Link> <i className="fa-regular fa-trash-can delete-btn" onClick={handleDelete} data-id={item.id} data-index={index}></i></td>
                                     </tr>
                                 ))}
                             </tbody>

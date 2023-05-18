@@ -7890,7 +7890,7 @@ var Posts = function Posts() {
                       className: "fa-regular fa-pen-to-square"
                     })
                   }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                    className: "fa-regular fa-trash-can",
+                    className: "fa-regular fa-trash-can delete-btn",
                     onClick: handleDelete,
                     "data-id": item.id,
                     "data-index": index
