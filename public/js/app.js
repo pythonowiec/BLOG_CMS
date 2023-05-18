@@ -7936,6 +7936,14 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7971,20 +7979,30 @@ function AddPost() {
       title = _useState4[0],
       setTitle = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      image = _useState6[0],
-      setImage = _useState6[1];
+      inputTagsValue = _useState6[0],
+      setInputTagsValue = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState8 = _slicedToArray(_useState7, 2),
-      isLoaded = _useState8[0],
-      setIsLoaded = _useState8[1];
+      tags = _useState8[0],
+      setTags = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
-      validation = _useState10[0],
-      setValidation = _useState10[1];
+      image = _useState10[0],
+      setImage = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      isLoaded = _useState12[0],
+      setIsLoaded = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState14 = _slicedToArray(_useState13, 2),
+      selectedTags = _useState14[0],
+      setSelectedTags = _useState14[1];
 
   var onChangeContent = function onChangeContent(e) {
     setContent(e.target.getContent());
@@ -7994,12 +8012,36 @@ function AddPost() {
     setTitle(e.target.value);
   };
 
+  var onChangeTags = function onChangeTags(e) {
+    setInputTagsValue(e.target.value);
+  };
+
+  var onClickTagsAdd = function onClickTagsAdd(e) {
+    if (inputTagsValue.replace(/\s/g, '') !== '') {
+      setTags([].concat(_toConsumableArray(tags), [inputTagsValue]));
+      setSelectedTags([].concat(_toConsumableArray(selectedTags), [inputTagsValue]));
+      setInputTagsValue('');
+    }
+  };
+
+  var onChangeTagsCheckbox = function onChangeTagsCheckbox(value) {
+    var isSelected = selectedTags.includes(value);
+
+    if (isSelected) {
+      setSelectedTags(selectedTags.filter(function (val) {
+        return val !== value;
+      }));
+    } else {
+      setSelectedTags([].concat(_toConsumableArray(selectedTags), [value]));
+    }
+  };
+
   var onChangeImage = function onChangeImage(e) {
     var file = e.target.files[0];
     setImage(file);
   };
 
-  var onClick = /*#__PURE__*/function () {
+  var onClickSaveButton = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
       var token, fd, instance;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -8021,6 +8063,7 @@ function AddPost() {
               fd.append('title', title);
               fd.append('content', content);
               fd.append('name', user.name);
+              fd.append('tags', selectedTags);
               instance = axios.create({
                 baseURL: 'http://127.0.0.1:8000/api/',
                 headers: {
@@ -8060,7 +8103,7 @@ function AddPost() {
                 }
               });
 
-            case 11:
+            case 12:
             case "end":
               return _context.stop();
           }
@@ -8068,7 +8111,7 @@ function AddPost() {
       }, _callee);
     }));
 
-    return function onClick() {
+    return function onClickSaveButton() {
       return _ref.apply(this, arguments);
     };
   }();
@@ -8083,7 +8126,6 @@ function AddPost() {
         className: "col-10 ",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
           className: "form-control w-100 add_input",
-          id: "exampleInputEmail1",
           type: "text",
           placeholder: "Title",
           name: "title",
@@ -8097,11 +8139,66 @@ function AddPost() {
       className: "row mt-5",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "col-1"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "col-10 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+          className: "form-control w-100 add_input",
+          type: "text",
+          placeholder: "Add tag",
+          name: "tags",
+          onChange: onChangeTags,
+          required: true
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+          className: "saveBtn",
+          onClick: onClickTagsAdd,
+          children: "Add tag"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "col-1"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      className: "row mt-5",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "col-1"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "col-10 ",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "form-check tags",
+          children: tags.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            className: "tags-mess",
+            children: "Add some tags ;)"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            children: tags.map(function (tag, index) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                  className: "form-check-input",
+                  type: "checkbox",
+                  value: tag,
+                  checked: selectedTags.includes(tag),
+                  onChange: function onChange() {
+                    return onChangeTagsCheckbox(tag);
+                  },
+                  id: "flexCheckChecked"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                  className: "form-check-label",
+                  htmlFor: "flexCheckChecked",
+                  children: tag
+                })]
+              }, index);
+            })
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "col-1"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      className: "row mt-5",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "col-1"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "col-10",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
           className: "form-control w-100 add_input",
-          id: "exampleInputEmail1",
           type: "file",
           placeholder: "Title",
           name: "title",
@@ -8144,7 +8241,7 @@ function AddPost() {
         className: "col-10",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
           className: "saveBtn",
-          onClick: onClick,
+          onClick: onClickSaveButton,
           children: "Save"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {

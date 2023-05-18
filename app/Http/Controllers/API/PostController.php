@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\User;
+use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Voter;
 use Illuminate\Http\Request;
@@ -49,6 +50,7 @@ class PostController extends Controller
             'content' => 'required|',
             'title' => 'required|unique:posts|max:255|required|',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+            'tags' => 'required|string|min:1',
         ]);
         if($validation->fails()){
             return response()->json(['message' => $validation->messages()], 500);
@@ -63,9 +65,15 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->content = $request->content;
             $post->name = $request->name;
-            $post->views = '0';
+            $post->views = 0; // Assuming the views column is numeric
             $post->image = $idImg;
             $post->save();
+
+            $tagNames = explode(',', $request->tags);
+            foreach ($tagNames as $tagName) {
+                $tag = new Tag(['name' => $tagName]);
+                $post->tags()->save($tag);
+            }
             return response()->json(200);
 
         }
@@ -152,14 +160,6 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->image = $id_img;
         $post->save();
-
-        // $post = DB::table('posts')
-        //         ->where('id', $id)
-        //         ->update([
-        //                 'title' => $request->title,
-        //                 'content' => $request->content,
-        //                 'image' => $id_img
-        // ]);
         return response()->json($post, 200);
     }
 

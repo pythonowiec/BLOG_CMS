@@ -10,9 +10,11 @@ function AddPost () {
     const {user, getAccessTokenSilently} = useAuth0();
     const [content, setContent] = useState([]);
     const [title, setTitle] = useState('');
+    const [inputTagsValue, setInputTagsValue] = useState('');
+    const [tags, setTags] = useState([]);  
     const [image, setImage] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [validation, setValidation] = useState([]);
+    const [selectedTags, setSelectedTags] = useState([]);
 
     const onChangeContent = (e) => {
         setContent(e.target.getContent())
@@ -20,12 +22,32 @@ function AddPost () {
     const onChangeTitle = (e) => {
         setTitle(e.target.value)
     }
+    const onChangeTags = (e) => {
+        setInputTagsValue(e.target.value)
+    }
+    const onClickTagsAdd = (e) => {
+        if (inputTagsValue.replace(/\s/g, '') !== '') {
+            setTags([...tags, inputTagsValue]);
+            setSelectedTags([...selectedTags, inputTagsValue]);
+            setInputTagsValue('');
+
+          }
+    }
+    const onChangeTagsCheckbox = (value) => {
+        const isSelected = selectedTags.includes(value);
+    
+        if (isSelected) {
+            setSelectedTags(selectedTags.filter((val) => val !== value));
+        } else {
+            setSelectedTags([...selectedTags, value]);
+        }
+    }
     const onChangeImage = (e) => {
         const file = e.target.files[0]
         setImage(file)
     }
 
-    const onClick = async () =>{
+    const onClickSaveButton = async () =>{
         const token = await getAccessTokenSilently();
         const fd = new FormData()
         if(image){
@@ -36,6 +58,7 @@ function AddPost () {
         fd.append('title', title)
         fd.append('content', content)
         fd.append('name', user.name)
+        fd.append('tags', selectedTags)
         const instance = axios.create({
             baseURL: 'http://127.0.0.1:8000/api/',
             headers: {
@@ -85,14 +108,44 @@ function AddPost () {
             <div className='row mt-5'>
                 <div className='col-1'></div>
                 <div className='col-10 '>
-                    <input className='form-control w-100 add_input' id='exampleInputEmail1' type='text' placeholder='Title' name='title' onChange={onChangeTitle} required/>
+                    <input className='form-control w-100 add_input'  type='text' placeholder='Title' name='title' onChange={onChangeTitle} required/>
+                </div>
+                <div className='col-1'></div>
+            </div>
+            <div className='row mt-5'>
+                <div className='col-1'></div>
+                <div className='col-10 '>
+                    <input className='form-control w-100 add_input'  type='text' placeholder='Add tag' name='tags' onChange={onChangeTags} required/>
+                    <button  className='saveBtn' onClick={onClickTagsAdd}>Add tag</button>
+                </div>
+                <div className='col-1'></div>
+            </div>
+            <div className='row mt-5'>
+                <div className='col-1'></div>
+                <div className='col-10 '>
+                        <div className="form-check tags">
+                            {tags.length === 0 ? (
+                                <p className="tags-mess">Add some tags ;)</p>
+                            ) : (
+                                <div>
+                                    {tags.map((tag, index) => (
+                                        <div key={index}>
+                                            <input className="form-check-input" type="checkbox" value={tag} checked={selectedTags.includes(tag)} onChange={() => onChangeTagsCheckbox(tag)} id="flexCheckChecked" />
+                                            <label  className="form-check-label" htmlFor="flexCheckChecked">
+                                                {tag}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                 </div>
                 <div className='col-1'></div>
             </div>
             <div className='row mt-5'>
                 <div className='col-1'></div>
                 <div className='col-10'>
-                    <input className='form-control w-100 add_input' id='exampleInputEmail1' type='file' placeholder='Title' name='title' onChange={onChangeImage} required/>
+                    <input className='form-control w-100 add_input'  type='file' placeholder='Title' name='title' onChange={onChangeImage} required/>
                 </div>
                 <div className='col-1'></div>
             </div>
@@ -121,7 +174,7 @@ function AddPost () {
             <div className='row'>
                 <div className='col-1'></div>
                 <div className='col-10'>
-                    <button className='saveBtn' onClick={onClick}>Save</button>
+                    <button className='saveBtn' onClick={onClickSaveButton}>Save</button>
                 </div>
                 <div className='col-1'></div>
             </div>

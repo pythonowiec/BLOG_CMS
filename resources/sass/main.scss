@@ -181,7 +181,20 @@ a:hover {
 
 .add_input {
     color: white !important;
-    background-color: #222f3e !important;
+    background-color: #363c41 !important;
+}
+
+.add_input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #fff !important;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #fff;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #fff;
 }
 
 .tab-post {
@@ -267,6 +280,21 @@ svg {
     --bs-badge-padding-x: 0.5em;
     --bs-badge-padding-y: 0.25em;
 
+}
+
+.tags{
+    color: #fff;
+    border: #ced4da solid 1px;
+    max-height: 150px;
+    overflow: auto;
+}
+
+.tags div{
+    padding: 5px 0px 5px 10px;
+}
+.tags-mess{
+    margin: 16px 0px;
+    text-align: center;
 }
 @-webkit-keyframes spinner {
     0% {
@@ -489,3 +517,4 @@ svg {
         left: -webkit-calc(50% - 100px);
     }
 }
+
