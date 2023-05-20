@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useAuth0 } from '@auth0/auth0-react';
 import { Editor } from '@tinymce/tinymce-react';
 import 'axios';
+import React, { useEffect, useState } from "react";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -15,7 +16,9 @@ function AddPost () {
     const [image, setImage] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [selectedTags, setSelectedTags] = useState([]);
-
+    const [postId, setPostId] = useState([]);
+    const navigate = useNavigate();
+    
     const onChangeContent = (e) => {
         setContent(e.target.getContent())
     }
@@ -30,8 +33,8 @@ function AddPost () {
             setTags([...tags, inputTagsValue]);
             setSelectedTags([...selectedTags, inputTagsValue]);
             setInputTagsValue('');
-
-          }
+            
+        }
     }
     const onChangeTagsCheckbox = (value) => {
         const isSelected = selectedTags.includes(value);
@@ -53,7 +56,7 @@ function AddPost () {
         if(image){
             fd.append('image', image, image.name)
             fd.append('extension', image.type)
-
+            
         }
         fd.append('title', title)
         fd.append('content', content)
@@ -66,15 +69,17 @@ function AddPost () {
             }
         });
         instance.post('http://127.0.0.1:8000/api/posts', fd)
-            .then(function (response) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Your post has been saved',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    allowOutsideClick: false
-                })
+        .then(function (response) {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Your post has been saved',
+                showConfirmButton: false,
+                timer: 2000,
+                allowOutsideClick: false
+            })
+            console.log(response.data.id)
+            navigate(`../admin_panel/edit/${response.data.id}`);
             })
             .catch(function (response) {
                 const err = Object.values(response.response.data.message)
@@ -97,7 +102,8 @@ function AddPost () {
                 didOpen: () => {
                     Swal.showLoading()
                     if(isLoaded == true){
-                        Swal.close()
+                        Swal.close();
+                        
                     }
                 }
             })

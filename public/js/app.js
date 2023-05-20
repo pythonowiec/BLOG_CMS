@@ -7922,13 +7922,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _auth0_auth0_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @auth0/auth0-react */ "./node_modules/@auth0/auth0-react/dist/auth0-react.esm.js");
 /* harmony import */ var _tinymce_tinymce_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tinymce/tinymce-react */ "./node_modules/@tinymce/tinymce-react/lib/es2015/main/ts/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
-/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _auth0_auth0_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @auth0/auth0-react */ "./node_modules/@auth0/auth0-react/dist/auth0-react.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -7964,45 +7965,53 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function AddPost() {
-  var _useAuth = (0,_auth0_auth0_react__WEBPACK_IMPORTED_MODULE_5__.useAuth0)(),
+  var _useAuth = (0,_auth0_auth0_react__WEBPACK_IMPORTED_MODULE_1__.useAuth0)(),
       user = _useAuth.user,
       getAccessTokenSilently = _useAuth.getAccessTokenSilently;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       content = _useState2[0],
       setContent = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
       title = _useState4[0],
       setTitle = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
       inputTagsValue = _useState6[0],
       setInputTagsValue = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([]),
       _useState8 = _slicedToArray(_useState7, 2),
       tags = _useState8[0],
       setTags = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
       image = _useState10[0],
       setImage = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
       isLoaded = _useState12[0],
       setIsLoaded = _useState12[1];
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([]),
       _useState14 = _slicedToArray(_useState13, 2),
       selectedTags = _useState14[0],
       setSelectedTags = _useState14[1];
+
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([]),
+      _useState16 = _slicedToArray(_useState15, 2),
+      postId = _useState16[0],
+      setPostId = _useState16[1];
+
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
 
   var onChangeContent = function onChangeContent(e) {
     setContent(e.target.getContent());
@@ -8071,7 +8080,7 @@ function AddPost() {
                 }
               });
               instance.post('http://127.0.0.1:8000/api/posts', fd).then(function (response) {
-                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5___default().fire({
                   position: 'center',
                   icon: 'success',
                   title: 'Your post has been saved',
@@ -8079,9 +8088,11 @@ function AddPost() {
                   timer: 2000,
                   allowOutsideClick: false
                 });
+                console.log(response.data.id);
+                navigate("../admin_panel/edit/".concat(response.data.id));
               })["catch"](function (response) {
                 var err = Object.values(response.response.data.message);
-                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5___default().fire({
                   icon: 'error',
                   title: 'Oops...',
                   text: 'Something went wrong!',
@@ -8090,15 +8101,15 @@ function AddPost() {
                   }))
                 });
               });
-              sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default().fire({
+              sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5___default().fire({
                 position: 'center',
                 title: 'Saving...',
                 showConfirmButton: false,
                 didOpen: function didOpen() {
-                  sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default().showLoading();
+                  sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5___default().showLoading();
 
                   if (isLoaded == true) {
-                    sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default().close();
+                    sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5___default().close();
                   }
                 }
               });

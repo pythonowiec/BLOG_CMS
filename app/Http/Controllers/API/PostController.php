@@ -65,7 +65,7 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->content = $request->content;
             $post->name = $request->name;
-            $post->views = 0; // Assuming the views column is numeric
+            $post->views = 0; 
             $post->image = $idImg;
             $post->save();
 
@@ -74,7 +74,9 @@ class PostController extends Controller
                 $tag = new Tag(['name' => $tagName]);
                 $post->tags()->save($tag);
             }
-            return response()->json(200);
+            return response()->json([
+                'id' => $post->id
+            ], 200);
 
         }
 
