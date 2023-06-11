@@ -1,6 +1,6 @@
 ## About project
 
-This is improved version of [Moto_Blog](https://github.com/pythonowiec/Moto_Blog). I rewrite frontend in React & Bootstrap. I have built API in Larvel.
+This is improved version of [Moto_Blog](https://github.com/pythonowiec/Moto_Blog). I rewrite frontend in React & Bootstrap. I have built API in Laravel.
 
 Some technologies and packages:
 
